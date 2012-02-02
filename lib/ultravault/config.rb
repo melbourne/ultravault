@@ -2,9 +2,9 @@ module UltraVM
   module Config
     
     VALID_OPTIONS = [
-        :hostname,
-        :port,
-        :path
+        :url,
+        :username,
+        :password
       ]
     
   end

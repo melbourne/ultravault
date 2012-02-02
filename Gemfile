@@ -1,4 +1,4 @@
 source :rubygems
 gemspec
 
-gem 'rapuncel'
+gem 'savon'
