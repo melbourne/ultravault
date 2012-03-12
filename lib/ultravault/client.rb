@@ -1,4 +1,4 @@
-require 'rapuncel'
+require 'savon'
 
 module UltraVault
   class Client
