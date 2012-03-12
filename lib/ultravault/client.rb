@@ -4,6 +4,8 @@ module UltraVault
   class Client
     
     require 'client/users'
+    require 'client/groups'
+    require 'client/volumes'
     
     attr_accessor :options
     

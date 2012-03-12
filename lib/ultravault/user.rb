@@ -24,23 +24,23 @@ module UltraVault
     end
     
     def user_agent_permissions
-      
+      @client.get('UserAgentPermissions', uuid)
     end
     
     def group_ids
-      
+      @client.get('GroupIDs', uuid)
     end
     
     def subuser_ids
-      
+      @client.get('SubuserIDs', uuid)
     end
     
     def volume_ids
-      
+      @client.get('VolumeIDs', uuid)
     end
     
     def attributes
-      
+      @client.get('UserAttributes', uuid)
     end
     
   end
