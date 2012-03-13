@@ -1,4 +1,4 @@
-module UltraVM
+module UltraVault
   module Config
     
     VALID_OPTIONS = [
