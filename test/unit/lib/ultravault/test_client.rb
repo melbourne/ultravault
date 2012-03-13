@@ -1,11 +1,11 @@
 require 'test/unit'
 require 'shoulda'
 require 'mocha'
-require_relative '../../lib/ultravault/base'
+require_relative '../../../../lib/ultravault/client'
 
 class ClientTest < Test::Unit::TestCase
   
-  context "main" do
+  context "creating a client" do
     
     setup do
       @options = { url: "some.valid.url", username: "foo", password: "bar" }
@@ -16,13 +16,7 @@ class ClientTest < Test::Unit::TestCase
     
     context '#initialize' do
       should "pass off url to savon client instance" do
-        UltraVault::Base.new @options
-      end
-    end
-    
-    context "#client" do
-      should "respond to client" do
-        UltraVault::Base.new(@options).respond_to? :client
+        UltraVault::Client.new @options
       end
     end
     
