@@ -2,11 +2,6 @@ module UltraVault
   
   class Group < Base
     
-    def initialize(client, uuid)
-      @client = client
-      @uuid = uuid
-    end
-    
     def uuid
       @uuid
     end
