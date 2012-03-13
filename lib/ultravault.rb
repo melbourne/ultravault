@@ -1,6 +1,6 @@
 module UltraVault
   
-  autoload :Config, "ultravm/config"
-  autoload :Client, "ultravm/client"
+  autoload :Config, "ultravault/config"
+  autoload :Client, "ultravault/client"
   
 end
