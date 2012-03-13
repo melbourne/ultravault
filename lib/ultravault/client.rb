@@ -2,14 +2,17 @@ require 'savon'
 
 module UltraVault
   
-  class Base
+  class Client
     def initialize(params)
       @client = Savon::Client.new(params[:url])
       @client.connect params[:username], params[:password]
     end
     
-    def client
-      @client
+    def get(attribute)
+      @client.call("#{get}")
+    end
+    
+    def set
     end
   end
   
