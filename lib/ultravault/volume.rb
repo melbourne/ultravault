@@ -1,6 +1,11 @@
 module UltraVault
   
-  class Volume < Base
+  class Volume
+    
+    def initialize(client, name)
+      @client = client
+      @name = name
+    end
     
     def uuid
       @uuid
