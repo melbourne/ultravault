@@ -12,6 +12,5 @@ class VolumeTest < Test::Unit::TestCase
       @volume = UltraVault::Volume.new(@client, 'foo')
     end
     
-    context 'n'
   end
 end
