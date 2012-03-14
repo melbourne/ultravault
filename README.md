@@ -5,7 +5,25 @@
     require 'ultravault'
 
     # Connect to ultravault
-    @client = UltraVault::Client.new(user_id, password)
+    @client = UltraVault::Client.new(user_id, password, uri)
+    
+    # Getting ultravault data
+    
+    # Retrieve agents for user
+    agent_service = UltraVault::AgentService.new(@client)
+    agents = agentservice.all # Array of Agent objects
+    
+    UltraVault::Agent has many UltraVault::DiskSafes
+    Disksafes retrieved on Agent initialization
+    
+    agents.each do |agent|
+      disksafes = agent.disksafes
+    end
+    
+    # Retrieve disksafes for a user service
+    
+    disksafe_service = UltraVault::DisksafeService.new(user_id, password, host, api_version, agent)
+    disksafes = disksafe_sevice.all
     
     # Create a new volume
     volume = UltraVault::Volume.new(@client, name)
@@ -20,7 +38,9 @@
     
     ruby-1.9.3-p0 :025 > client = Savon::Client.new('http://melbournesupport:******@sanmarino.melbourne.co.uk:9080/Volume?wsdl')
      => #<Savon::Client:0x007ff4f4800188 @wsdl=#<Savon::Wasabi::Document:0x007ff4f48000e8 @document="http://melbournesupport:******@sanmarino.melbourne.co.uk:9080/Volume?wsdl", @request=#<HTTPI::Request:0x007ff4f4800020>>, @http=#<HTTPI::Request:0x007ff4f4800020>> 
-    ruby-1.9.3-p0 :026 > client.request(:getVolumes)
+    ruby-1.9.3-p0 :026 > client.http.auth.basic 'melbournesupport', '*****'
+     => ["melbournesupport", "*****"]
+    ruby-1.9.3-p0 :027 > client.request(:getVolumes)
 
 produces the body:
 
@@ -68,6 +88,18 @@ produces the body:
 			</ns1:getVolumesResponse>
 		</soap:Body>
 	</soap:Envelope>
+	
+Getting a disksafe
+
+    r = client.request :getDiskSafeByID do |soap|
+      soap.body do |xml|
+        xml.id '3067f030-9814-4314-ae03-75933ac29e37'
+      end
+    end
+	
+    Nori.parse r.http.raw_body
+    res = Nori.parse(r.http.raw_body)
+    id = res[:envelope][:body][:get_disk_safe_by_id_response][:return]
 
 ## Rails
 
