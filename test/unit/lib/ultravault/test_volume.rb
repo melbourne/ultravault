@@ -4,7 +4,7 @@ require 'mocha'
 require_relative '../../../../lib/ultravault/client'
 require_relative '../../../../lib/ultravault/volume'
 
-class VolumeTest  Test::Unit::TestCase
+class VolumeTest < Test::Unit::TestCase
   context 'creating a volume' do
     setup do
       @client = mock
