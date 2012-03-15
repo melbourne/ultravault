@@ -69,7 +69,7 @@ class DiskSafeTest < Test::Unit::TestCase
         end
         
         should "match the capacity at the right byte level" do
-          assert_equal @device_list.capacity, "60 GB"
+          assert_equal @device_list.capacity, 64421359616
         end
         
         should "match the device content type" do
@@ -149,11 +149,11 @@ class DiskSafeTest < Test::Unit::TestCase
       end                                   
       
       should "match the size at the right byte level" do
-        assert_equal @disk_safe.size, "19.5 GB"
+        assert_equal @disk_safe.size, 20931331073
       end                                 
       
       should "match the size of deltas at the right byte level" do
-        assert_equal @disk_safe.size_of_deltas, "17.4 GB"
+        assert_equal @disk_safe.size_of_deltas, 18665326744
       end   
       
       should "match the volume id" do
