@@ -18,6 +18,7 @@ module UltraVault
       @size = params[:size].to_i  
       @size_of_deltas = params[:size_of_deltas_in_disk_safe]
       @volume_id = params[:volume_id]
+      extract_attributes params[:disk_safe_attribute_map]
     end                         
     
     def size
@@ -31,6 +32,14 @@ module UltraVault
     end
   
   private
+  
+    def extract_attributes(params)
+      params[:entry].each do |entry|
+        self.instance_variable_set "@#{entry[:key]}".downcase.to_sym, entry[:value]
+        self.class.send(:attr_reader, entry[:key].downcase.to_sym)
+      end
+    end
+  
     require 'action_controller'
     class DeviceList
       attr_reader :content_type, :path, :enabled,

@@ -98,17 +98,42 @@ class DiskSafeTest < Test::Unit::TestCase
         end
       end
       
-      # :disk_safe_attribute_map=>{:entry=>
-      #   [{:key=>"ARCHIVING_ENABLED", :value=>true},
-      #    {:key=>"FILE_EXCLUDES_ENABLED",  :value=>true}, 
-      #    {:key=>"QUOTA_TYPE",  :value=>"NONE"}, 
-      #    {:key=>"CONTROLPANELS_ENABLED",  :value=>true}, 
-      #    {:key=>"ARCHIVE_POINT_LIMIT", :value=>"-1"},
-      #    {:key=>"RECOVERY_POINT_LIMIT", :value=>"-1"}, 
-      #    {:key=>"SOFT_QUOTA_VALUE", :value=>"-1.0"}, 
-      #    {:key=>"REPLICATION_FREQUENCY_LIMIT", :value=>"NO_LIMIT"}, 
-      #    {:key=>"HARD_QUOTA_VALUE", :value=>"-1.0"}]
-      #    }, 
+      should "match the archiving enabled attribute" do
+        assert_equal @disk_safe.archiving_enabled, true
+      end
+      
+      should "match the file excludes enabled attribute" do
+        assert_equal @disk_safe.file_excludes_enabled, true
+      end                                                  
+      
+      should "match the quota type" do
+        assert_equal @disk_safe.quota_type, 'NONE'
+      end                                        
+      
+      should "match the control panels enabled attribute" do
+        assert_equal @disk_safe.controlpanels_enabled, true
+      end                                                  
+      
+      should "match the archive point limit attribute" do
+        assert_equal @disk_safe.archive_point_limit, "-1"
+      end
+
+      should "match the recovery point limit attribute" do
+        assert_equal @disk_safe.recovery_point_limit, "-1"
+      end                                                
+      
+      should "match the soft quota value attribute" do
+        assert_equal @disk_safe.soft_quota_value, "-1.0"
+      end                                               
+      
+      should "match the replication frequency limit" do
+        assert_equal @disk_safe.replication_frequency_limit,
+          "NO_LIMIT"
+      end                   
+      
+      should "match the hard quota value" do
+        assert_equal @disk_safe.hard_quota_value, "-1.0"
+      end
       
       should "match the id" do
         assert_equal @disk_safe.id, @input[:id]
