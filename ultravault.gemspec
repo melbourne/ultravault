@@ -1,5 +1,5 @@
 Gem::Specification.new do |gem|
-  gem.name    = "ultravm"
+  gem.name    = "ultravault"
   gem.version = "0.0.5"
 
   gem.homepage    = "http://github.com/melbourne/ultravault"
@@ -13,6 +13,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rake"
   gem.add_development_dependency "rspec"
 
-  gem.author = "James Rose"
-  gem.email  = "james.rose@melbourne.co.uk"
+  gem.author = "Carpet & Sean"
+  gem.email  = "andrew.turner@melbourne.co.uk;sean.handley@melbourne.co.uk"
 end
