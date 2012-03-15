@@ -1,31 +1,15 @@
 module UltraVault
   class RecoveryPoint
+    attr_reader :agent_id, :created_at, :disk_safe_id,
+                  :id, :state
+    
     def initialize params
-      @agent_id = params[:agentID]
-      @created_at = Time.at(params[:createdOnTimestampInMillis] / 1000.0)
-      @disk_safe_id = params[:diskSafeID]
-      @id = params[:recoveryPointID]
-      @state = params[:recoveryPointState].downcase
+      @agent_id = params[:agent_id]
+      @created_at = Time.at(params[:created_on_timestamp_in_millis] / 1000.0)
+      @disk_safe_id = params[:disk_safe_id]
+      @id = params[:recovery_point_id]
+      @state = params[:recovery_point_state].downcase
     end
     
-    def agent_id
-      @agent_id
-    end
-    
-    def created_at
-      @created_at
-    end
-    
-    def disk_safe_id
-      @disk_safe_id
-    end
-    
-    def id
-      @id
-    end
-    
-    def state
-      @state
-    end
   end
 end

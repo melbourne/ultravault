@@ -8,11 +8,11 @@ class RecoveryPointTest < Test::Unit::TestCase
   context "creating a recovery point" do
     
     setup do
-      @input = { agentID: 'e9bd701b-dac1-4921-ab1c-467f35209e21',
-                 createdOnTimestampInMillis: 1330361712361,
-                 diskSafeID: '3067f030-9814-4314-ae03-75933ac29e37',
-                 recoveryPointID: 1,
-                 recoveryPointState: 'AVAILABLE'}
+      @input = { agent_id: 'e9bd701b-dac1-4921-ab1c-467f35209e21',
+                 created_on_timestamp_in_millis: 1330361712361,
+                 disk_safe_id: '3067f030-9814-4314-ae03-75933ac29e37',
+                 recovery_point_id: 1,
+                 recovery_point_state: 'AVAILABLE'}
     end
     
     context 'attributes' do
@@ -22,7 +22,7 @@ class RecoveryPointTest < Test::Unit::TestCase
       end
       
       should "match the input agent id" do
-        assert_equal @recovery_point.agent_id, @input[:agentID]
+        assert_equal @recovery_point.agent_id, @input[:agent_id]
       end
       
       should "give the created_at as a ruby date_time" do
@@ -35,15 +35,15 @@ class RecoveryPointTest < Test::Unit::TestCase
       end
       
       should "match the disk safe id" do
-        assert_equal @recovery_point.disk_safe_id, @input[:diskSafeID]
+        assert_equal @recovery_point.disk_safe_id, @input[:disk_safe_id]
       end
       
       should "match the recovery point ID" do
-        assert_equal @recovery_point.id, @input[:recoveryPointID]
+        assert_equal @recovery_point.id, @input[:recovery_point_id]
       end
       
       should "match the recovery point state" do
-        assert_equal @recovery_point.state, @input[:recoveryPointState].downcase
+        assert_equal @recovery_point.state, @input[:recovery_point_state].downcase
       end
     end
     
