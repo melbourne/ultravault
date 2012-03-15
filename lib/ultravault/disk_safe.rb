@@ -3,7 +3,7 @@ module UltraVault
     attr_reader :agent_id, :compression_level, :compression_type,
                   :description, :device_count, :device_list,
                   :id, :open, :recovery_point_count,
-                  :volume_id
+                  :volume_id, :size, :size_of_deltas
     
     def initialize(params)
       @agent_id = params[:agent_id]
@@ -16,20 +16,10 @@ module UltraVault
       @open = params[:open]                        
       @recovery_point_count = params[:recovery_point_count].to_i
       @size = params[:size].to_i  
-      @size_of_deltas = params[:size_of_deltas_in_disk_safe]
+      @size_of_deltas = params[:size_of_deltas_in_disk_safe].to_i
       @volume_id = params[:volume_id]
       extract_attributes params[:disk_safe_attribute_map]
     end                         
-    
-    def size
-      ActionController::Base.helpers.
-        number_to_human_size(@size)      
-    end  
-    
-    def size_of_deltas
-      ActionController::Base.helpers.
-        number_to_human_size(@size_of_deltas)      
-    end
   
   private
   
@@ -40,10 +30,9 @@ module UltraVault
       end
     end
   
-    require 'action_controller'
     class DeviceList
       attr_reader :content_type, :path, :enabled,
-                  :mount_point, :mounted
+                  :mount_point, :mounted, :capacity
       
       def initialize(params)
         @capacity = params[:capacity].to_i
@@ -54,10 +43,6 @@ module UltraVault
         @mounted = params[:mounted]
       end
       
-      def capacity
-        ActionController::Base.helpers.
-          number_to_human_size(@capacity)        
-      end
       
     end
   end
