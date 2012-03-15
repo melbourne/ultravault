@@ -15,7 +15,7 @@ class RecoveryPointTest < Test::Unit::TestCase
                  recoveryPointState: 'AVAILABLE'}
     end
     
-    context '#agent_id' do
+    context 'attributes' do
       
       setup do
         @recovery_point = UltraVault::RecoveryPoint.new(@input)
