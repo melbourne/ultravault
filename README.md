@@ -101,6 +101,17 @@ Getting a disksafe
     res = Nori.parse(r.http.raw_body)
     id = res[:envelope][:body][:get_disk_safe_by_id_response][:return]
 
+Getting a recovery point
+
+    client = Savon::Client.new('http://melbournesupport:******@sanmarino.melbourne.co.uk:9080/RecoveryPoints?wsdl')
+    client.http.auth.basic 'melbournesupport', '*****'
+	r = client.request :getRecoveryPoints do |soap| 
+	  soap.body = '<diskSafe>
+	    <id>3067f030-9814-4314-ae03-75933ac29e37</id>
+	  </diskSafe>
+	  <includeMerged type="boolean">false</includeMerged>'
+	end
+
 ## Rails
 
 Add this to your Gemfile:
