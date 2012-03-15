@@ -3,7 +3,7 @@ require 'shoulda'
 require 'mocha'
 require_relative '../../../../lib/ultravault/recovery_point'
 
-class ClientTest < Test::Unit::TestCase
+class RecoveryPointTest < Test::Unit::TestCase
   
   context "creating a recovery point" do
     
@@ -16,8 +16,34 @@ class ClientTest < Test::Unit::TestCase
     end
     
     context '#agent_id' do
+      
+      setup do
+        @recovery_point = UltraVault::RecoveryPoint.new(@input)
+      end
+      
       should "match the input agent id" do
-
+        assert_equal @recovery_point.agent_id, @input[:agentID]
+      end
+      
+      should "give the created_at as a ruby date_time" do
+        assert_equal @recovery_point.created_at.year, 2012
+        assert_equal @recovery_point.created_at.month, 02
+        assert_equal @recovery_point.created_at.day, 27
+        assert_equal @recovery_point.created_at.hour, 16
+        assert_equal @recovery_point.created_at.min, 55
+        assert_equal @recovery_point.created_at.sec, 12
+      end
+      
+      should "match the disk safe id" do
+        assert_equal @recovery_point.disk_safe_id, @input[:diskSafeID]
+      end
+      
+      should "match the recovery point ID" do
+        assert_equal @recovery_point.id, @input[:recoveryPointID]
+      end
+      
+      should "match the recovery point state" do
+        assert_equal @recovery_point.state, @input[:recoveryPointState].downcase
       end
     end
     
