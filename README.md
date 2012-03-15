@@ -111,6 +111,11 @@ Getting a recovery point
 	  </diskSafe>
 	  <includeMerged type="boolean">false</includeMerged>'
 	end
+	
+Converting recovery point time (ms) to Ruby time
+
+    t = Time.at(1330427016495/1000.0)
+    t.strftime("%Y-%m-%d %H:%M.%S")
 
 ## Rails
 
