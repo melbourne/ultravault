@@ -1,6 +1,4 @@
-require 'test/unit'
-require 'shoulda'
-require 'mocha'
+require_relative '../../../test_helper'
 require_relative '../../../../lib/ultravault/disk_safe'
 
 class DiskSafeTest < Test::Unit::TestCase
