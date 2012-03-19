@@ -6,7 +6,9 @@ class AgentServiceTest < Test::Unit::TestCase
   context 'a new agent service' do
     
     setup do
-      @params =  { host: 'foo.bar.baz', port: 9080, api_version: 1, ssl: false, username: 'foo', password: 'bar' }
+      @params =  { host: 'foo.bar.baz', port: 9080,
+                   api_version: 1, ssl: false,
+                   username: 'foo', password: 'bar' }
     end
     
     should "pass on init params to the client" do
