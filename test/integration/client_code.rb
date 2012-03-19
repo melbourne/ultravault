@@ -15,13 +15,19 @@ class ClientCodeTest < Test::Unit::TestCase
         config.ssl = false
         config.username = 'foo'
         config.password = 'bar'
-      end
+      end   
+      
       # Create an agent
       agent_service = UltraVault::AgentService.new
       agent = agent_service.find_agent_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21")
       assert_not_nil agent
-      disksafes = agent.disk_safes
-      assert disksafes.count > 0
+      
+      # Check disksafes
+      assert agent.disk_safes.count > 0
+                                        
+      # Check recovery points
+      disk_safe = agent.disk_safes.first
+      assert disk_safe.recovery_points.count > 0
     end
   end
 end
