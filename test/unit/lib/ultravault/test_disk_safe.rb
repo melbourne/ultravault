@@ -157,6 +157,10 @@ class DiskSafeTest < Test::Unit::TestCase
         assert_equal @disk_safe.volume_id, @input[:volume_id]
       end
       
+      should "define recovery points" do
+        assert @disk_safe.respond_to? :recovery_points
+      end
+      
     end
   end
 end
