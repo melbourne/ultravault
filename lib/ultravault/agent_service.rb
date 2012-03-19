@@ -1,11 +1,9 @@
 module UltraVault
   
-  class AgentService
-    include UltraVault::SoapService
+  class AgentService < UltraVault::SoapService    
     
     def initialize
-      build_api_request(:Agent)
-      build_client
+      super(:Agent)
     end
     
     def find_agent_by_id(agent_id)

@@ -1,11 +1,9 @@
 module UltraVault
   
-  class DiskSafeService
-    include UltraVault::SoapService
+  class DiskSafeService < UltraVault::SoapService
     
     def initialize
-      build_api_request(:DiskSafe)
-      build_client
+      super(:DiskSafe)
     end
     
     def find_disksafes_by_agent_id(agent_id)
