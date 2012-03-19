@@ -1,5 +1,4 @@
 require_relative '../../../test_helper'
-require_relative '../../../../lib/ultravault/agent'
 
 class AgentTest < Test::Unit::TestCase
   
@@ -37,6 +36,10 @@ class AgentTest < Test::Unit::TestCase
       
       should "match the input port_number" do
         assert_equal @params[:port_number], @agent.port_number
+      end
+      
+      should "respond to .disk_safes" do
+        assert @agent.respond_to? :disk_safes
       end
       
     end
