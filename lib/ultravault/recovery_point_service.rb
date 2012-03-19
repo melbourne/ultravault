@@ -1,10 +1,8 @@
 module UltraVault
-  class RecoveryPointService
-    include UltraVault::SoapService
+  class RecoveryPointService < UltraVault::SoapService
     
     def initialize
-      build_api_request(:RecoveryPoint)
-      build_client
+      super(:RecoveryPoint)
     end
     
     def find_FOO(agent_id)

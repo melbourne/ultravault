@@ -1,5 +1,11 @@
 module UltraVault
-  module SoapService
+  class SoapService
+    
+    def initialize(service)
+      build_api_request(service)
+      build_client
+    end
+    
     private
     
     def build_api_request(service)
