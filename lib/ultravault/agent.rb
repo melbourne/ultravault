@@ -8,6 +8,11 @@ module UltraVault
       @id = params[:id]
       @os_type = params[:os_type]
       @port_number = params[:port_number]
+      disk_safes
+    end
+    
+    def disk_safes
+      @disk_safes ||= UltraVault::DiskSafeService.new.find_disksafes_by_agent_id(id)
     end
     
   end
