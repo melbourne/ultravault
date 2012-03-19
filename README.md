@@ -17,22 +17,21 @@ Run
 ### Configure
 
 ``` ruby
-
-    UltraVault.configure do |config|
-       config.host = 'foo.bar.baz'
-       config.port = 9080
-       config.api_version = 1
-       config.ssl = false
-       config.username = 'foo'
-       config.password = 'bar'
-     end   
+UltraVault.configure do |config|
+   config.host = 'foo.bar.baz'
+   config.port = 9080
+   config.api_version = 1
+   config.ssl = false
+   config.username = 'foo'
+   config.password = 'bar'
+ end   
 ```
      
 ### Create an agent
 
 ``` ruby
-     agent_service = UltraVault::AgentService.new
-     agent_service.find_agent_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21") # => UltraVault::Agent
+agent_service = UltraVault::AgentService.new
+agent_service.find_agent_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21") # => UltraVault::Agent
 ```
 
 ## Testing
