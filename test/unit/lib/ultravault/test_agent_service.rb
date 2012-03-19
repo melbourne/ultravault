@@ -12,8 +12,10 @@ class AgentServiceTest < Test::Unit::TestCase
                       :os_type=>"WINDOWS", :port_number=>"1167"
                   }
       
-      @response = {:get_agent_by_id_response=>
-                     {:return=> @return,
+      @response = {
+                    :get_agent_by_id_response=>
+                     {
+                       :return=> @return,
                        :"@xmlns:ns1"=>"http://agent.api.server.backup.r1soft.com/"
                      }
                    }         
@@ -40,11 +42,8 @@ class AgentServiceTest < Test::Unit::TestCase
       should "return an agent object if it exists" do
         UltraVault::Client.any_instance.expects(:request).with(
           :getAgentByID, id: 'foo').returns(mock(to_hash: @response))
-        UltraVault::Client.any_instance.expects(:request).with(
-              :getDiskSafesForAgent, agent: { id: 'e9bd701b-dac1-4921-ab1c-467f35209e21'}
-              ).returns(stub_everything)
+        UltraVault::Agent.expects(:new).returns(stub_everything)
         agent = @agent_service.find_agent_by_id('foo')
-        assert agent.is_a? UltraVault::Agent
       end
       
       should "raise an error if it does not exist" do
