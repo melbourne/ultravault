@@ -1,5 +1,4 @@
 require_relative '../../../test_helper'
-require_relative '../../../../lib/ultravault/client'
 
 class ClientTest < Test::Unit::TestCase
   

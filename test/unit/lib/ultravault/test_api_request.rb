@@ -1,5 +1,4 @@
 require_relative '../../../test_helper'
-require_relative '../../../../lib/ultravault/api_request'
 
 class ApiRequestTest < Test::Unit::TestCase
   
