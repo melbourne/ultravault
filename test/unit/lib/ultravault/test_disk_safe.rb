@@ -4,7 +4,7 @@ class DiskSafeTest < Test::Unit::TestCase
   context 'A new disksafe' do
     
     setup do
-      @input = {:agent_id=>"e9bd701b-dac1-4921-ab1c-467f35209e21",
+      @params = {:agent_id=>"e9bd701b-dac1-4921-ab1c-467f35209e21",
                 :compression_level=>"LOW", 
                 :compression_type=>"QUICKLZ", 
                 :description=>"test-MSSQL", 
@@ -32,32 +32,35 @@ class DiskSafeTest < Test::Unit::TestCase
                 :recovery_point_count=>"2", 
                 :size=>"20931331073", 
                 :size_of_deltas_in_disk_safe=>"18665326744", 
-                :volume_id=>"9b77052e-e1d3-4c51-a49a-51544fcb12e1"}      
+                :volume_id=>"9b77052e-e1d3-4c51-a49a-51544fcb12e1"}
+      UltraVault::RecoveryPointService.expects(
+            :find_recovery_points).with(
+            @params[:id]).returns(stub)    
     end
     
     context "attributes" do
       setup do
-        @disk_safe = UltraVault::DiskSafe.new(@input)
+        @disk_safe = UltraVault::DiskSafe.new(@params)
       end
       
       should "match the agent id" do
-        assert_equal @disk_safe.agent_id, @input[:agent_id]
+        assert_equal @disk_safe.agent_id, @params[:agent_id]
       end
       
       should "match the compression level" do
-        assert_equal @disk_safe.compression_level, @input[:compression_level]
+        assert_equal @disk_safe.compression_level, @params[:compression_level]
       end
       
       should "match the compression type" do
-        assert_equal @disk_safe.compression_type, @input[:compression_type]
+        assert_equal @disk_safe.compression_type, @params[:compression_type]
       end
       
       should "match the description" do
-        assert_equal @disk_safe.description, @input[:description]
+        assert_equal @disk_safe.description, @params[:description]
       end
       
       should "match the device count as an integer" do
-        assert_equal @disk_safe.device_count, @input[:device_count].to_i
+        assert_equal @disk_safe.device_count, @params[:device_count].to_i
       end
       
       context "device_list" do
@@ -71,27 +74,27 @@ class DiskSafeTest < Test::Unit::TestCase
         
         should "match the device content type" do
           assert_equal @device_list.content_type,
-            @input[:device_list][:device_content_type]
+            @params[:device_list][:device_content_type]
         end
         
         should "match the device path" do
           assert_equal @device_list.path,
-            @input[:device_list][:device_path]
+            @params[:device_list][:device_path]
         end 
         
         should "match the enabled flag" do
           assert_equal @device_list.enabled,
-            @input[:device_list][:enabled]
+            @params[:device_list][:enabled]
         end                               
         
         should "match the mount point" do
           assert_equal @device_list.mount_point,
-            @input[:device_list][:mount_point]
+            @params[:device_list][:mount_point]
         end                                   
         
         should "match the mounted flag" do
           assert_equal @device_list.mounted,
-            @input[:device_list][:mounted]
+            @params[:device_list][:mounted]
         end
       end
       
@@ -133,16 +136,16 @@ class DiskSafeTest < Test::Unit::TestCase
       end
       
       should "match the id" do
-        assert_equal @disk_safe.id, @input[:id]
+        assert_equal @disk_safe.id, @params[:id]
       end                           
       
       should "match the open flag" do
-        assert_equal @disk_safe.open, @input[:open]
+        assert_equal @disk_safe.open, @params[:open]
       end                                          
       
       should "match the recovery point count as integer" do
         assert_equal @disk_safe.recovery_point_count,
-          @input[:recovery_point_count].to_i
+          @params[:recovery_point_count].to_i
       end                                   
       
       should "match the size at the right byte level" do
@@ -154,7 +157,7 @@ class DiskSafeTest < Test::Unit::TestCase
       end   
       
       should "match the volume id" do
-        assert_equal @disk_safe.volume_id, @input[:volume_id]
+        assert_equal @disk_safe.volume_id, @params[:volume_id]
       end
       
       should "define recovery points" do

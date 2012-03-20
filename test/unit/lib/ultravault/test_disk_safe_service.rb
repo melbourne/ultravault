@@ -72,6 +72,8 @@ class DiskSafeServiceTest < Test::Unit::TestCase
        should "return an array of disksafe objects if there are any" do
          @client.expects(:request).with(
                :getDiskSafesForAgent, agent: { id: 'foo' }).returns(mock(to_hash: @response))
+         UltraVault::RecoveryPointService.expects(
+               :find_recovery_points).returns(stub)
          disk_safes = UltraVault::DiskSafeService.find_disksafes_by_agent_id('foo')
          assert disk_safes.each {|ds| ds.is_a? UltraVault::DiskSafe }
        end
