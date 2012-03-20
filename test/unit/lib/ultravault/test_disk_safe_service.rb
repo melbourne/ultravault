@@ -81,7 +81,7 @@ class DiskSafeServiceTest < Test::Unit::TestCase
         @client.expects(:request).with(
             :getDiskSafesForAgent, agent: { id: 'bar' }).raises(error)
          assert_raise Savon::SOAP::Fault do
-           agent = UltraVault::DiskSafeService.find_disksafes_by_agent_id('bar')
+           disk_safes = UltraVault::DiskSafeService.find_disksafes_by_agent_id('bar')
          end
        end
      end
