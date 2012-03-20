@@ -18,48 +18,36 @@ class AgentServiceTest < Test::Unit::TestCase
                        :return=> @return,
                        :"@xmlns:ns1"=>"http://agent.api.server.backup.r1soft.com/"
                      }
-                   }         
-    end
-    
-    context '#initialize' do
-      should "pass on init params to the client" do
-        UltraVault::Client.expects(:new)
-        UltraVault::AgentService.new
-      end
-      
-      should "pass on the params to the api request" do
-        UltraVault::ApiRequest.expects(:new).returns(mock(endpoint: 'foo',
-          namespace: 'bar'))
-        UltraVault::AgentService.new      
-      end
+                   }       
     end
     
     context '#find_agent_by_id' do
       setup do
-        @agent_service = UltraVault::AgentService.new
+        UltraVault::AgentService.expects(:api_request).returns(stub(endpoint: 'foo',
+            namespace: 'bar'))
+        @client = stub
+        UltraVault::AgentService.expects(:client).returns(@client)
       end
-      
       should "return an agent object if it exists" do
-        UltraVault::Client.any_instance.expects(:request).with(
+        @client.expects(:request).with(
           :getAgentByID, id: 'foo').returns(mock(to_hash: @response))
         UltraVault::Agent.expects(:new).returns(stub_everything)
-        agent = @agent_service.find_agent_by_id('foo')
+        agent = UltraVault::AgentService.find_agent_by_id('foo')
       end
       
       should "raise an error if it does not exist" do
         error = Savon::SOAP::Fault.new(stub(body: 'foo'))
-        UltraVault::Client.any_instance.expects(:request).with(
+        @client.expects(:request).with(
           :getAgentByID, id: 'bar').raises(error)
         assert_raise Savon::SOAP::Fault do
-          agent = @agent_service.find_agent_by_id('bar')
+          agent = UltraVault::AgentService.find_agent_by_id('bar')
         end
       end
     end
     
     context "#extract_agent_params" do
       should "drill down into the hash" do
-        agent_service = UltraVault::AgentService.new
-        assert_equal agent_service.send(:extract_agent_params, @response),
+        assert_equal UltraVault::AgentService.send(:extract_agent_params, @response),
           @return
       end
     end
