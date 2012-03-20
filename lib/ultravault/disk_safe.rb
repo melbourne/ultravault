@@ -22,7 +22,7 @@ module UltraVault
     end
     
     def recovery_points
-      ['foo']
+      UltraVault::RecoveryPointService.find_recovery_points(id)
     end                       
   
   private
