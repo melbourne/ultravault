@@ -34,7 +34,7 @@ class DiskSafeTest < Test::Unit::TestCase
                 :size_of_deltas_in_disk_safe=>"18665326744", 
                 :volume_id=>"9b77052e-e1d3-4c51-a49a-51544fcb12e1"}
       UltraVault::RecoveryPointService.expects(
-            :find_recovery_points).with(
+            :find_recovery_points_by_disk_safe_id).with(
             @params[:id]).returns(stub)    
     end
     
