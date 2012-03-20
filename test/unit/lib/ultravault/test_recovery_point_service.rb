@@ -5,56 +5,56 @@ class RecoveryPointServiceTest < Test::Unit::TestCase
   context 'a new recovery point service' do
     
     setup do
-      @return =   { 
-                  }
+      @return =   [
+                    {:agent_id=>"e9bd701b-dac1-4921-ab1c-467f35209e21",
+                     :created_on_timestamp_in_millis=>"1330361712361",
+                     :disk_safe_id=>"3067f030-9814-4314-ae03-75933ac29e37",
+                     :recovery_point_id=>"1",
+                     :recovery_point_state=>"AVAILABLE"},
+                    {:agent_id=>"e9bd701b-dac1-4921-ab1c-467f35209e21",
+                     :created_on_timestamp_in_millis=>"1330427016495",
+                     :disk_safe_id=>"3067f030-9814-4314-ae03-75933ac29e37",
+                     :recovery_point_id=>"2",
+                     :recovery_point_state=>"AVAILABLE"}
+                  ]
       
       @response = {
-                    :get_FOO_response=>
+                    :get_recovery_points_response=>
                      {
                        :return=> @return,
-                       :"@xmlns:ns1"=>"http://recoverypoint.api.server.backup.r1soft.com/"
+                       :"@xmlns:ns1"=>"http://recoverypoints.api.server.backup.r1soft.com/"
                      }
-                   }         
+                   }       
     end
-    
-    context '#initialize' do
-      should "pass on init params to the client" do
-        UltraVault::Client.expects(:new)
-        UltraVault::RecoveryPointService.new
-      end
-      
-      should "pass on the params to the api request" do
-        UltraVault::ApiRequest.expects(:new).returns(
-        mock(endpoint: 'foo', namespace: 'bar'))
-        UltraVault::RecoveryPointService.new      
-      end
-    end
-    
-    context '#find_FOO' do
+
+    context '#find_recovery_points' do
       setup do
-        @recovery_point_service = UltraVault::RecoveryPointService.new
+        UltraVault::RecoveryPointService.expects(:api_request).returns(stub(endpoint: 'foo',
+            namespace: 'bar'))
+        @client = stub
+        UltraVault::RecoveryPointService.expects(:client).returns(@client)
       end
-      
-      should "return a recovery point objects if present" do
-        UltraVault::Client.any_instance.expects(:request).with(
-          :getFOO, id: 'foo').returns(mock(to_hash: @response))
-        agent = @recover_point_service.find_FOO('foo')
+      should "return recovery point objects if present" do
+        @client.expects(:request).with(
+          :getRecoveryPoints, diskSafe: { id: 'foo' },
+            includeMerged: false).returns(mock(to_hash: @response))
+        recovery_points = UltraVault::RecoveryPointService.find_recovery_points('foo')
       end
       
       should "raise an error if there are no recovery points" do
         error = Savon::SOAP::Fault.new(stub(body: 'foo'))
-        UltraVault::Client.any_instance.expects(:request).with(
-          :getFOO, id: 'bar').raises(error)
+        @client.expects(:request).with(
+          :getRecoveryPoints, diskSafe: { id: 'bar' },
+            includeMerged: false).raises(error)
         assert_raise Savon::SOAP::Fault do
-          agent = @recovery_point_service.find_agent_by_id('bar')
+          recovery_points = UltraVault::RecoveryPointService.find_recovery_points('bar')
         end
       end
     end
     
     context "#extract_recovery_point_params" do
       should "drill down into the hash" do
-        recovery_point_service = UltraVault::RecoveryPointService.new
-        assert_equal recovery_point_service.send(
+        assert_equal UltraVault::RecoveryPointService.send(
           :extract_recovery_point_params, @response),
           @return
       end
