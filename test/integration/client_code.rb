@@ -15,6 +15,7 @@ class ClientCodeTest < Test::Unit::TestCase
         config.ssl = false
         config.username = 'foo'
         config.password = 'bar'
+        config.debug = false
       end   
       
       # Create an agent
