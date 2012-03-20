@@ -1,24 +1,21 @@
 module UltraVault
   class RecoveryPointService < UltraVault::SoapService
     
-    def initialize
-      super(:RecoveryPoint)
-    end
-    
-    def find_FOO(agent_id)
-      response_hash = @client.request(:getFOO,
-        :agent => {:id => agent_id }).to_hash
+    def self.find_recovery_points(disk_safe_id)
+      response_hash = client(api_request(:RecoveryPoints)).request(:getRecoveryPoints,
+        :diskSafe => {:id => disk_safe_id },
+        :includeMerged => false).to_hash
       extract_recovery_point_params(
-          response_hash).collect do |disk_safe|
-        UltraVault::DiskSafe.new(disk_safe)
+          response_hash).collect do |recovery_point|
+        UltraVault::RecoveryPoint.new(recovery_point)
       end
 
     end
 
     private
 
-    def extract_recovery_point_params response_hash
-      [response_hash[:get_FOO][:return]].flatten
+    def self.extract_recovery_point_params response_hash
+      [response_hash[:get_recovery_points_response][:return]].flatten
     end  
   end
 end
