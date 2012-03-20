@@ -29,6 +29,7 @@ See test/integration/client_code.rb for an executable example.
        config.ssl = false
        config.username = 'foo'
        config.password = 'bar'
+       config.debug = false
     end   
  
 ### Retrieving data
