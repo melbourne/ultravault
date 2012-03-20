@@ -33,13 +33,13 @@ class DiskSafeTest < Test::Unit::TestCase
                 :size=>"20931331073", 
                 :size_of_deltas_in_disk_safe=>"18665326744", 
                 :volume_id=>"9b77052e-e1d3-4c51-a49a-51544fcb12e1"}
-      UltraVault::RecoveryPointService.expects(
-            :find_recovery_points_by_disk_safe_id).with(
-            @params[:id]).returns(stub)    
     end
     
     context "attributes" do
       setup do
+        UltraVault::RecoveryPointService.any_instance.expects(
+              :find_recovery_points_by_disk_safe_id).with(
+              @params[:id]).returns(stub)
         @disk_safe = UltraVault::DiskSafe.new(@params)
       end
       
@@ -164,6 +164,13 @@ class DiskSafeTest < Test::Unit::TestCase
         assert @disk_safe.respond_to? :recovery_points
       end
       
+    end
+    
+    context 'class methods' do
+      should "pass on the call to the disk safe service" do
+        UltraVault::DiskSafeService.any_instance.expects(:find_disksafes_by_agent_id).with('foo')
+        UltraVault::DiskSafe.find_all_by_agent_id('foo')
+      end
     end
   end
 end

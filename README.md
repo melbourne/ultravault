@@ -35,8 +35,7 @@ See test/integration/client_code.rb for an executable example.
 ### Retrieving data
 
     # Retrieving an agent
-    agent_service = UltraVault::AgentService.new
-    agent = agent_service.find_agent_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21")
+    agent = UltraVault::Agent.find_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21")
     
     # Retrieving a disk safe
     disk_safe = agent.disk_safes.first

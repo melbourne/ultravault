@@ -63,18 +63,18 @@ class DiskSafeServiceTest < Test::Unit::TestCase
 
      context '#find_disksafes_by_agent_id' do
        setup do
-         UltraVault::DiskSafeService.expects(:api_request).returns(stub(endpoint: 'foo',
+         UltraVault::ApiRequest.expects(:new).returns(stub(endpoint: 'foo',
              namespace: 'bar'))
+         @service = UltraVault::DiskSafeService.new
          @client = stub
-         UltraVault::DiskSafeService.expects(:client).returns(@client)
+         @service.expects(:client).returns(@client)
        end
        
        should "return an array of disksafe objects if there are any" do
          @client.expects(:request).with(
                :getDiskSafesForAgent, agent: { id: 'foo' }).returns(mock(to_hash: @response))
-         UltraVault::RecoveryPointService.expects(
-               :find_recovery_points_by_disk_safe_id).returns(stub)
-         disk_safes = UltraVault::DiskSafeService.find_disksafes_by_agent_id('foo')
+         UltraVault::DiskSafe.expects(:new).returns(stub)
+         disk_safes = @service.find_disksafes_by_agent_id('foo')
          assert disk_safes.each {|ds| ds.is_a? UltraVault::DiskSafe }
        end
 
@@ -83,14 +83,14 @@ class DiskSafeServiceTest < Test::Unit::TestCase
         @client.expects(:request).with(
             :getDiskSafesForAgent, agent: { id: 'bar' }).raises(error)
          assert_raise Savon::SOAP::Fault do
-           disk_safes = UltraVault::DiskSafeService.find_disksafes_by_agent_id('bar')
+           disk_safes = @service.find_disksafes_by_agent_id('bar')
          end
        end
      end
 
      context "#extract_disksafe_params" do
        should "drill down into the hash" do
-         assert_equal UltraVault::DiskSafeService.send(:extract_disk_safe_params, @response),
+         assert_equal UltraVault::DiskSafeService.new.send(:extract_disk_safe_params, @response),
            [@return]
        end
      end

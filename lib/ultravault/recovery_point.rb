@@ -11,5 +11,14 @@ module UltraVault
       @state = params[:recovery_point_state].downcase
     end
     
+    # Returns an array of recovery points, if found.
+    # 
+    # @param [String] disk_safe_id the UUID of the disk safe
+    # @return [[UltraVault::RecoveryPoint]] the matching recovery points for the agent
+    # @raise [Savon::SOAP::Fault] errors from the soap transaction    
+    def self.find_all_by_disk_safe_id(disk_safe_id)
+      UltraVault::RecoveryPointService.new.find_recovery_points_by_disk_safe_id(disk_safe_id)
+    end
+    
   end
 end

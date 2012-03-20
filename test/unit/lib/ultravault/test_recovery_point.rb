@@ -44,6 +44,14 @@ class RecoveryPointTest < Test::Unit::TestCase
       end
     end
     
+    context 'class methods' do
+       should "pass on the call to the disk safe service" do
+         UltraVault::RecoveryPointService.any_instance.expects(
+           :find_recovery_points_by_disk_safe_id).with('foo')
+         UltraVault::RecoveryPoint.find_all_by_disk_safe_id('foo')
+       end
+     end
+    
   end
   
 end

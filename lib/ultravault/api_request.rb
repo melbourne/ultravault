@@ -1,5 +1,5 @@
 module UltraVault
-  
+  # @private  
   class ApiRequest
     def initialize(params)
       @host = params[:host]
