@@ -18,8 +18,7 @@ class ClientCodeTest < Test::Unit::TestCase
       end   
       
       # Create an agent
-      agent_service = UltraVault::AgentService.new
-      agent = agent_service.find_agent_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21")
+      agent = UltraVault::AgentService.find_agent_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21")
       assert_not_nil agent
       
       # Check disksafes
