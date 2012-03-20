@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.7.5
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <script type="text/javascript" charset="utf-8">
+      if (window.top.frames.main) document.body.className = 'frames';
+    </script>
+    
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+  
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a id="class_list_link" href="#">Class List</a>
+  
+    <a id="method_list_link" href="#">Method List</a>
+  
+    <a id="file_list_link" href="#">File List</a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><div id='filecontents'><h1>UltraVault</h1>
+
+<p>A simple wrapper gem for the UltraVault API allowing users to retrieve information about their agents, disk safes and recovery points.</p>
+
+<h2>Installing with Bundler</h2>
+
+<p>Add this to your Gemfile:</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ultravault</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='symbol'>:git</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>git@github.com:melbourne/ultravault.git</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='symbol'>:branch</span> <span class='op'>=&gt;</span> <span class='symbol'>:master</span>
+</code></pre>
+
+<p>Run</p>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_bundle'>bundle</span> <span class='id identifier rubyid_install'>install</span>
+</code></pre>
+
+<h2>Intended usage</h2>
+
+<p>See test/integration/client_code.rb for an executable example.</p>
+
+<h3>Inclusion</h3>
+
+<pre class="code ruby"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ultravault</span><span class='tstring_end'>'</span></span>
+</code></pre>
+
+<h3>Configure</h3>
+
+<pre class="code ruby"><code><span class='const'>UltraVault</span><span class='period'>.</span><span class='id identifier rubyid_configure'>configure</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_config'>config</span><span class='op'>|</span>
+   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_host'>host</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>foo.bar.baz</span><span class='tstring_end'>'</span></span>
+   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_port'>port</span> <span class='op'>=</span> <span class='int'>9080</span>
+   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_api_version'>api_version</span> <span class='op'>=</span> <span class='int'>1</span>
+   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_ssl'>ssl</span> <span class='op'>=</span> <span class='kw'>false</span>
+   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_username'>username</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>foo</span><span class='tstring_end'>'</span></span>
+   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_password'>password</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>bar</span><span class='tstring_end'>'</span></span>
+   <span class='id identifier rubyid_config'>config</span><span class='period'>.</span><span class='id identifier rubyid_debug'>debug</span> <span class='op'>=</span> <span class='kw'>false</span>
+<span class='kw'>end</span>   
+</code></pre>
+
+<h3>Retrieving data</h3>
+
+<pre class="code ruby"><code><span class='comment'># Retrieving an agent
+</span><span class='id identifier rubyid_agent_service'>agent_service</span> <span class='op'>=</span> <span class='const'>UltraVault</span><span class='op'>::</span><span class='const'>AgentService</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+<span class='id identifier rubyid_agent'>agent</span> <span class='op'>=</span> <span class='id identifier rubyid_agent_service'>agent_service</span><span class='period'>.</span><span class='id identifier rubyid_find_agent_by_id'>find_agent_by_id</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>e9bd701b-dac1-4921-ab1c-467f35209e21</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+
+<span class='comment'># Retrieving a disk safe
+</span><span class='id identifier rubyid_disk_safe'>disk_safe</span> <span class='op'>=</span> <span class='id identifier rubyid_agent'>agent</span><span class='period'>.</span><span class='id identifier rubyid_disk_safes'>disk_safes</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+
+<span class='comment'># Retrieving recovery points
+</span><span class='id identifier rubyid_recovery_point'>recovery_point</span> <span class='op'>=</span> <span class='id identifier rubyid_disk_safe'>disk_safe</span><span class='period'>.</span><span class='id identifier rubyid_recovery_points'>recovery_points</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+</code></pre>
+
+<h2>Authoring changes</h2>
+
+<h3>Testing</h3>
+
+<p>Make sure you run the test suite in full before pushing changes. Write new tests as you add new features.</p>
+
+<pre class="code ruby"><code>$ rake unit        # run unit tests
+$ rake integration # run integration tests
+</code></pre>
+</div></div>
+    
+    <div id="footer">
+  Generated on Tue Mar 20 11:10:57 2012 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.7.5 (ruby-1.9.3).
+</div>
+
+  </body>
+</html>
