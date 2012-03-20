@@ -1,5 +1,6 @@
 module UltraVault
 
+  require 'savon'
   require_relative "ultravault/config"
   
   autoload :Agent,                "./lib/ultravault/agent"
