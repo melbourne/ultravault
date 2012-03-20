@@ -1,5 +1,3 @@
-require 'savon'
-
 module UltraVault
   
   class Client
