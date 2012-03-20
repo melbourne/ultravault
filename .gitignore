@@ -7,3 +7,6 @@ pkg/
 .bundle
 .rvmrc
 Gemfile.lock
+.yardoc/checksums
+.yardoc/objects/root.dat
+.yardoc/proxy_types
