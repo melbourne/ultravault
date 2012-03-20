@@ -6,11 +6,6 @@ require 'savon'
 include WebMock::API
 require_relative '../lib/ultravault'
 
-Savon.configure do |config| 
-  config.log = false
-  HTTPI.log = false
-end
-
 UltraVault.configure do |config|
   config.host = 'foo.bar.baz'
   config.port = 9080
