@@ -19,7 +19,7 @@ module UltraVault
 
     private
 
-    def extract_recovery_point_params response_hash
+    def extract_recovery_point_params(response_hash)
       [response_hash[:get_recovery_points_response][:return]].flatten
     end  
   end

@@ -31,7 +31,7 @@ module UltraVault
     # @param [String] agent_id the UUID of the agent 
     # @return [[UltraVault::DiskSafe]] the matching disk safes for the agent
     # @raise [Savon::SOAP::Fault] errors from the soap transaction
-    def self.find_all_by_agent_id agent_id
+    def self.find_all_by_agent_id(agent_id)
       UltraVault::DiskSafeService.new.find_disksafes_by_agent_id agent_id
     end                      
   
