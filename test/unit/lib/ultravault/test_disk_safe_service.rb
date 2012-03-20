@@ -61,45 +61,34 @@ class DiskSafeServiceTest < Test::Unit::TestCase
                     }
      end
 
-     context '#initialize' do
-       should "pass on init params to the client" do
-         UltraVault::Client.expects(:new)
-         UltraVault::DiskSafeService.new
-       end
-
-       should "pass on the params to the api request" do
-         UltraVault::ApiRequest.expects(:new).returns(mock(endpoint: 'foo',
-           namespace: 'bar'))
-         UltraVault::DiskSafeService.new     
-       end
-     end
-
      context '#find_disksafes_by_agent_id' do
        setup do
-         @disk_safe_service = UltraVault::DiskSafeService.new
+         UltraVault::DiskSafeService.expects(:api_request).returns(stub(endpoint: 'foo',
+             namespace: 'bar'))
+         @client = stub
+         UltraVault::DiskSafeService.expects(:client).returns(@client)
        end
-
+       
        should "return an array of disksafe objects if there are any" do
-         UltraVault::Client.any_instance.expects(:request).with(
+         @client.expects(:request).with(
                :getDiskSafesForAgent, agent: { id: 'foo' }).returns(mock(to_hash: @response))
-         disk_safes = @disk_safe_service.find_disksafes_by_agent_id('foo')
+         disk_safes = UltraVault::DiskSafeService.find_disksafes_by_agent_id('foo')
          assert disk_safes.each {|ds| ds.is_a? UltraVault::DiskSafe }
        end
 
        should "raise an error if it does not exist" do
          error = Savon::SOAP::Fault.new(stub(body: 'foo'))
-         UltraVault::Client.any_instance.expects(:request).with(
+        @client.expects(:request).with(
             :getDiskSafesForAgent, agent: { id: 'bar' }).raises(error)
          assert_raise Savon::SOAP::Fault do
-           agent = @disk_safe_service.find_disksafes_by_agent_id('bar')
+           agent = UltraVault::DiskSafeService.find_disksafes_by_agent_id('bar')
          end
        end
      end
 
      context "#extract_disksafe_params" do
        should "drill down into the hash" do
-         disk_safe_service = UltraVault::DiskSafeService.new
-         assert_equal disk_safe_service.send(:extract_disk_safe_params, @response),
+         assert_equal UltraVault::DiskSafeService.send(:extract_disk_safe_params, @response),
            [@return]
        end
      end
