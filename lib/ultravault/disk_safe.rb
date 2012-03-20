@@ -19,6 +19,7 @@ module UltraVault
       @size_of_deltas = params[:size_of_deltas_in_disk_safe].to_i
       @volume_id = params[:volume_id]
       extract_attributes params[:disk_safe_attribute_map]
+      recovery_points
     end
     
     def recovery_points
