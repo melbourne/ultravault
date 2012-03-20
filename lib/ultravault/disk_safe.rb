@@ -22,7 +22,7 @@ module UltraVault
     end
     
     def recovery_points
-      
+      ['foo']
     end                       
   
   private

@@ -28,6 +28,7 @@ class AgentServiceTest < Test::Unit::TestCase
         @client = stub
         UltraVault::AgentService.expects(:client).returns(@client)
       end
+      
       should "return an agent object if it exists" do
         @client.expects(:request).with(
           :getAgentByID, id: 'foo').returns(mock(to_hash: @response))

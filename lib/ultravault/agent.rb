@@ -12,7 +12,7 @@ module UltraVault
     end
     
     def disk_safes
-      @disk_safes ||= UltraVault::DiskSafeService.new.find_disksafes_by_agent_id(id)
+      @disk_safes ||= UltraVault::DiskSafeService.find_disksafes_by_agent_id(id)
     end
     
   end
