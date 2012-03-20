@@ -15,6 +15,8 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "mocha"
   gem.add_development_dependency "shoulda"
   gem.add_development_dependency "webmock"
+  
+  gem.add_dependency "savon"
 
   gem.author = "Carpet & Sean"
   gem.email  = "andrew.turner@melbourne.co.uk;sean.handley@melbourne.co.uk"
