@@ -23,17 +23,18 @@ class AgentServiceTest < Test::Unit::TestCase
     
     context '#find_agent_by_id' do
       setup do
-        UltraVault::AgentService.expects(:api_request).returns(stub(endpoint: 'foo',
+        UltraVault::ApiRequest.expects(:new).returns(stub(endpoint: 'foo',
             namespace: 'bar'))
+        @service = UltraVault::AgentService.new
         @client = stub
-        UltraVault::AgentService.expects(:client).returns(@client)
+        @service.expects(:client).returns(@client)
       end
       
       should "return an agent object if it exists" do
         @client.expects(:request).with(
           :getAgentByID, id: 'foo').returns(mock(to_hash: @response))
         UltraVault::Agent.expects(:new).returns(stub_everything)
-        agent = UltraVault::AgentService.find_agent_by_id('foo')
+        agent = @service.find_agent_by_id('foo')
       end
       
       should "raise an error if it does not exist" do
@@ -41,14 +42,14 @@ class AgentServiceTest < Test::Unit::TestCase
         @client.expects(:request).with(
           :getAgentByID, id: 'bar').raises(error)
         assert_raise Savon::SOAP::Fault do
-          agent = UltraVault::AgentService.find_agent_by_id('bar')
+          agent = @service.find_agent_by_id('bar')
         end
       end
     end
     
     context "#extract_agent_params" do
       should "drill down into the hash" do
-        assert_equal UltraVault::AgentService.send(:extract_agent_params, @response),
+        assert_equal UltraVault::AgentService.new.send(:extract_agent_params, @response),
           @return
       end
     end

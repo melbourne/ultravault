@@ -23,8 +23,17 @@ module UltraVault
     end
     
     def recovery_points
-      @recovery_points ||= UltraVault::RecoveryPointService.find_recovery_points_by_disk_safe_id(id)
-    end                       
+      @recovery_points ||= UltraVault::RecoveryPointService.new.find_recovery_points_by_disk_safe_id(id)
+    end
+    
+    # Returns an array of disk safes, if found.
+    # 
+    # @param [String] agent_id the UUID of the agent 
+    # @return [[UltraVault::DiskSafe]] the matching disk safes for the agent
+    # @raise [Savon::SOAP::Fault] errors from the soap transaction
+    def self.find_all_by_agent_id agent_id
+      UltraVault::DiskSafeService.new.find_disksafes_by_agent_id agent_id
+    end                      
   
   private
   

@@ -10,13 +10,13 @@ class AgentTest < Test::Unit::TestCase
                   :id=>"e9bd701b-dac1-4921-ab1c-467f35209e21",
                   :os_type=>"WINDOWS",
                   :port_number=>"1167"}
-      UltraVault::DiskSafeService.expects(
-            :find_disksafes_by_agent_id).with(
-            @params[:id]).returns(stub)  
     end
     
     context 'attributes' do
       setup do
+        UltraVault::DiskSafe.expects(
+              :find_all_by_agent_id).with(
+              @params[:id]).returns(stub)
         @agent = UltraVault::Agent.new(@params)
       end
       
@@ -44,6 +44,13 @@ class AgentTest < Test::Unit::TestCase
         assert @agent.respond_to? :disk_safes
       end
       
+    end
+    
+    context 'class methods' do
+      should "pass on the call to the agent service" do
+        UltraVault::AgentService.any_instance.expects(:find_agent_by_id).with('foo')
+        UltraVault::Agent.find_by_id('foo')
+      end
     end
   end
 end

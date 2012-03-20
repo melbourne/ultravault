@@ -1,5 +1,5 @@
 module UltraVault
-  
+  # @private
   class Client
     def initialize(params)
       
