@@ -16,7 +16,7 @@ module UltraVault
     
     private
     
-    def extract_disk_safe_params response_hash
+    def extract_disk_safe_params(response_hash)
       [response_hash[:get_disk_safes_for_agent_response][:return]].flatten
     end
   end

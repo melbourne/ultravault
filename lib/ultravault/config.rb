@@ -25,7 +25,7 @@ module UltraVault
       debug = debug
     end
     
-    def debug= state
+    def debug=(state)
       Savon.configure do |config| 
         config.log = state
         HTTPI.log = state

@@ -2,7 +2,7 @@ module UltraVault
   class Agent
     attr_reader :description, :hostname, :id, :os_type, :port_number
     
-    def initialize params
+    def initialize(params)
       @description = params[:description]
       @hostname = params[:hostname]
       @id = params[:id]
