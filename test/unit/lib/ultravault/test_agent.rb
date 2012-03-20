@@ -10,7 +10,7 @@ class AgentTest < Test::Unit::TestCase
                   :id=>"e9bd701b-dac1-4921-ab1c-467f35209e21",
                   :os_type=>"WINDOWS",
                   :port_number=>"1167"}
-      UltraVault::DiskSafeService.any_instance.expects(
+      UltraVault::DiskSafeService.expects(
             :find_disksafes_by_agent_id).with(
             @params[:id]).returns(stub)  
     end
