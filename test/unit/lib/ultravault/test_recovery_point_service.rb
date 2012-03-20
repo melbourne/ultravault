@@ -27,7 +27,7 @@ class RecoveryPointServiceTest < Test::Unit::TestCase
                    }       
     end
 
-    context '#find_recovery_points' do
+    context '#find_recovery_points_by_disk_safe_id' do
       setup do
         UltraVault::RecoveryPointService.expects(:api_request).returns(stub(endpoint: 'foo',
             namespace: 'bar'))
@@ -38,7 +38,7 @@ class RecoveryPointServiceTest < Test::Unit::TestCase
         @client.expects(:request).with(
           :getRecoveryPoints, diskSafe: { id: 'foo' },
             includeMerged: false).returns(mock(to_hash: @response))
-        recovery_points = UltraVault::RecoveryPointService.find_recovery_points('foo')
+        recovery_points = UltraVault::RecoveryPointService.find_recovery_points_by_disk_safe_id('foo')
       end
       
       should "raise an error if there are no recovery points" do
@@ -47,7 +47,7 @@ class RecoveryPointServiceTest < Test::Unit::TestCase
           :getRecoveryPoints, diskSafe: { id: 'bar' },
             includeMerged: false).raises(error)
         assert_raise Savon::SOAP::Fault do
-          recovery_points = UltraVault::RecoveryPointService.find_recovery_points('bar')
+          recovery_points = UltraVault::RecoveryPointService.find_recovery_points_by_disk_safe_id('bar')
         end
       end
     end

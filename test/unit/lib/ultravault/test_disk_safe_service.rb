@@ -73,7 +73,7 @@ class DiskSafeServiceTest < Test::Unit::TestCase
          @client.expects(:request).with(
                :getDiskSafesForAgent, agent: { id: 'foo' }).returns(mock(to_hash: @response))
          UltraVault::RecoveryPointService.expects(
-               :find_recovery_points).returns(stub)
+               :find_recovery_points_by_disk_safe_id).returns(stub)
          disk_safes = UltraVault::DiskSafeService.find_disksafes_by_agent_id('foo')
          assert disk_safes.each {|ds| ds.is_a? UltraVault::DiskSafe }
        end

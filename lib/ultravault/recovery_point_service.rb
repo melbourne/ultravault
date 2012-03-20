@@ -1,7 +1,7 @@
 module UltraVault
   class RecoveryPointService < UltraVault::SoapService
     
-    def self.find_recovery_points(disk_safe_id)
+    def self.find_recovery_points_by_disk_safe_id(disk_safe_id)
       response_hash = client(api_request(:RecoveryPoints)).request(:getRecoveryPoints,
         :diskSafe => {:id => disk_safe_id },
         :includeMerged => false).to_hash
