@@ -5,20 +5,7 @@ class AgentServiceTest < Test::Unit::TestCase
   context 'a new agent service' do
     
     setup do
-      @return =   { :database_add_on_enabled=>false,
-                      :description=>"test-MSSQL",
-                      :hostname=>"46.20.232.228",
-                      :id=>"e9bd701b-dac1-4921-ab1c-467f35209e21",
-                      :os_type=>"WINDOWS", :port_number=>"1167"
-                  }
-      
-      @response = {
-                    :get_agent_by_id_response=>
-                     {
-                       :return=> @return,
-                       :"@xmlns:ns1"=>"http://agent.api.server.backup.r1soft.com/"
-                     }
-                   }       
+      load_agent_service_fixtures
     end
     
     context '#find_agent_by_id' do
@@ -32,7 +19,7 @@ class AgentServiceTest < Test::Unit::TestCase
       
       should "return an agent object if it exists" do
         @client.expects(:request).with(
-          :getAgentByID, id: 'foo').returns(mock(to_hash: @response))
+          :getAgentByID, id: 'foo').returns(mock(to_hash: @agent_by_id_wrapper))
         UltraVault::Agent.expects(:new).returns(stub_everything)
         agent = @service.find_agent_by_id('foo')
       end
@@ -49,8 +36,15 @@ class AgentServiceTest < Test::Unit::TestCase
     
     context "#extract_agent_params" do
       should "drill down into the hash" do
-        assert_equal UltraVault::AgentService.new.send(:extract_agent_params, @response),
-          @return
+        assert_equal UltraVault::AgentService.new.send(:extract_agent_params, @agent_by_id_wrapper),
+          @agent_by_id
+      end
+    end
+    
+    context "#extract_all_agents_params" do
+      should "drill down into the hash" do
+        assert_equal UltraVault::AgentService.new.send(:extract_all_agents_params,
+         @all_agents_wrapper), @all_agents
       end
     end
   end
