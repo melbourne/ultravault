@@ -8,7 +8,6 @@ module UltraVault
       @id = params[:id]
       @os_type = params[:os_type]
       @port_number = params[:port_number]
-      disk_safes
     end
 
     # Disksafes belonging to this agent.
