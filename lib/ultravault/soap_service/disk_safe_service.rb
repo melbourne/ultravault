@@ -11,7 +11,6 @@ module UltraVault
       extract_disk_safe_params(response_hash).collect do |disk_safe|
         UltraVault::DiskSafe.new(disk_safe)
       end
-  
     end
     
     private
