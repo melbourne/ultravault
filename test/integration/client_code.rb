@@ -3,7 +3,7 @@ require_relative '../../lib/ultravault'
 require 'vcr'
 
 VCR.configure do |c|
-  c.cassette_library_dir = 'vcr_cassettes'
+  c.cassette_library_dir = "#{File.dirname(__FILE__)}/../vcr_cassettes"
   c.hook_into :webmock # or :fakeweb
 end
 
