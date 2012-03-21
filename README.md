@@ -6,11 +6,13 @@ A simple wrapper gem for the UltraVault API allowing users to retrieve informati
 
 Add this to your Gemfile:
 
-    gem 'ultravault', :git => "git@github.com:melbourne/ultravault.git", :branch => :master
+```ruby
+gem 'ultravault', :git => "git@github.com:melbourne/ultravault.git", :branch => :master
+```
 
 Run
 
-    bundle install
+    $ bundle install
 
 ## Intended usage
 
@@ -18,31 +20,36 @@ See test/integration/client_code.rb for an executable example.
 
 ### Inclusion
 
-    require 'ultravault'
+```ruby   
+require 'ultravault'
+```            
 
 ### Configure
 
-    UltraVault.configure do |config|
-       config.host = 'foo.bar.baz'
-       config.port = 9080
-       config.api_version = 1
-       config.ssl = false
-       config.username = 'foo'
-       config.password = 'bar'
-       config.debug = false
-    end   
+```ruby   
+UltraVault.configure do |config|
+   config.host = 'foo.bar.baz'
+   config.port = 9080
+   config.api_version = 1
+   config.ssl = false
+   config.username = 'foo'
+   config.password = 'bar'
+   config.debug = false
+end   
+```
  
 ### Retrieving data
 
-    # Retrieving an agent
-    agent = UltraVault::Agent.find_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21")
-    
-    # Retrieving a disk safe
-    disk_safe = agent.disk_safes.first
+```ruby   
+# Retrieving an agent
+agent = UltraVault::Agent.find_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21")
 
-    # Retrieving recovery points
-    recovery_point = disk_safe.recovery_points.first
+# Retrieving a disk safe
+disk_safe = agent.disk_safes.first
 
+# Retrieving recovery points
+recovery_point = disk_safe.recovery_points.first  
+```
 
 ## Authoring changes
 
