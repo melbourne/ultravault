@@ -9,9 +9,6 @@ class DiskSafeTest < Test::Unit::TestCase
     
     context "attributes" do
       setup do
-        UltraVault::RecoveryPointService.any_instance.expects(
-              :find_recovery_points_by_disk_safe_id).with(
-              @disk_safe_params[:id]).returns(stub)
         @disk_safe = UltraVault::DiskSafe.new(@disk_safe_params)
       end
       
@@ -37,35 +34,35 @@ class DiskSafeTest < Test::Unit::TestCase
       
       context "device_list" do
         setup do
-          @device_list = @disk_safe.device_list
+          @device = @disk_safe.device_list.first
         end
         
         should "match the capacity at the right byte level" do
-          assert_equal @device_list.capacity, 64421359616
+          assert_equal @device.capacity, 64421359616
         end
         
         should "match the device content type" do
-          assert_equal @device_list.content_type,
+          assert_equal @device.content_type,
             @disk_safe_params[:device_list][:device_content_type]
         end
         
         should "match the device path" do
-          assert_equal @device_list.path,
+          assert_equal @device.path,
             @disk_safe_params[:device_list][:device_path]
         end 
         
         should "match the enabled flag" do
-          assert_equal @device_list.enabled,
+          assert_equal @device.enabled,
             @disk_safe_params[:device_list][:enabled]
         end                               
         
         should "match the mount point" do
-          assert_equal @device_list.mount_point,
+          assert_equal @device.mount_point,
             @disk_safe_params[:device_list][:mount_point]
         end                                   
         
         should "match the mounted flag" do
-          assert_equal @device_list.mounted,
+          assert_equal @device.mounted,
             @disk_safe_params[:device_list][:mounted]
         end
       end
@@ -132,8 +129,11 @@ class DiskSafeTest < Test::Unit::TestCase
         assert_equal @disk_safe.volume_id, @disk_safe_params[:volume_id]
       end
       
-      should "define recovery points" do
-        assert @disk_safe.respond_to? :recovery_points
+      should "define recovery points by api request" do
+        UltraVault::RecoveryPointService.any_instance.expects(
+              :find_recovery_points_by_disk_safe_id).with(
+              @disk_safe_params[:id]).returns(stub)
+        @disk_safe.recovery_points      
       end
       
     end
