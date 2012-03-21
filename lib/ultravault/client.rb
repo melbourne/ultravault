@@ -10,7 +10,7 @@ module UltraVault
       end
     end
     
-    def request(action, args)
+    def request(action, args={})
       @client.request action, :body => args
     end
   end
