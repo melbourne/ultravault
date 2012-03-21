@@ -44,6 +44,9 @@ end
 # Retrieving an agent
 agent = UltraVault::Agent.find_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21")
 
+# Retrieve all agents
+agents = UltraVault::Agent.all
+
 # Retrieving a disk safe
 disk_safe = agent.disk_safes.first
 
