@@ -14,9 +14,6 @@ class AgentTest < Test::Unit::TestCase
     
     context 'attributes' do
       setup do
-        UltraVault::DiskSafe.expects(
-              :find_all_by_agent_id).with(
-              @params[:id]).returns(stub)
         @agent = UltraVault::Agent.new(@params)
       end
       
@@ -40,8 +37,11 @@ class AgentTest < Test::Unit::TestCase
         assert_equal @params[:port_number], @agent.port_number
       end
       
-      should "respond to .disk_safes" do
-        assert @agent.respond_to? :disk_safes
+      should "respond to .disk_safes via an api call" do
+        UltraVault::DiskSafe.expects(
+              :find_all_by_agent_id).with(
+              @params[:id]).returns(stub)
+        @agent.disk_safes
       end
       
     end
