@@ -22,6 +22,14 @@ class ConfigTest < Test::Unit::TestCase
       assert_equal UltraVault.config.username, "bar"
       assert_equal UltraVault.config.password, "foo"
     end
+    
+    should "be configurable via hash" do
+      assert_equal UltraVault.config.host, 'baz.bar.foo'
+      UltraVault.config = { :host => 'baz' }
+      assert_equal UltraVault.config.host, 'baz'
+      # Make sure defaults not reverted
+      assert_equal UltraVault.config.api_version, 4
+    end
   end
   
 end
