@@ -7,6 +7,10 @@ module UltraVault
     @config ||= Config.new
   end
   
+  def self.config=(hash)
+    @config.update(hash)
+  end
+  
   private
   
   class Config
@@ -14,15 +18,15 @@ module UltraVault
                   :ssl, :username, :password
     attr_reader   :debug
                   
-    def initialize(host='', port=0, api_version=1, ssl=false,
-                   username='', password='', debug=false)
-      @host = host
-      @port = port
-      @api_version = api_version
-      @ssl = ssl
-      @username = username
-      @password = password
-      @debug = debug
+    def initialize(params={})
+      params = defaults.merge(params)
+      update(params)
+    end
+
+    def update(params)
+      params.each do |k,v|
+        instance_variable_set("@#{k}", v)
+      end
     end
     
     def debug=(state)
@@ -31,6 +35,16 @@ module UltraVault
         HTTPI.log = state
       end
       @debug = state
+    end
+    
+    private
+    
+    def defaults
+      { 
+        host: '', port: 0, api_version: 1,
+        ssl: false, username: '', password:'',
+        debug: false
+      }
     end
   end 
 end

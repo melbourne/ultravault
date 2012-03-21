@@ -37,6 +37,12 @@ UltraVault.configure do |config|
    config.debug = false
 end   
 ```
+
+or
+
+```ruby   
+UltraVault.config = { host: 'baz.bar.foo' }
+```
  
 ### Retrieving data
 
