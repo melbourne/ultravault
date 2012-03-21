@@ -11,7 +11,7 @@ module UltraVault
       UltraVault::Agent.new(extract_agent_params(response_hash))
     end
     
-    def all
+    def all_agents
       response_hash = client.request(:getAgents).to_hash
       extract_all_agents_params(response_hash).collect do |agent|
         UltraVault::Agent.new(agent)
