@@ -5,7 +5,8 @@ class ApiRequestTest < Test::Unit::TestCase
   context "A new api request" do
     
     setup do
-      @params = { host: 'foo.bar.baz', port: 9080, service: 'Foo', api_version: 1, ssl: false}
+      @params = { host: 'foo.bar.baz', port: 9080, service: 'Foo',
+        api_version: 1, ssl: false}
     end
     
     context "attributes" do
