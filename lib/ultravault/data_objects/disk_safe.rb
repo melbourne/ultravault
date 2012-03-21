@@ -11,7 +11,9 @@ module UltraVault
       @compression_type = params[:compression_type]
       @description = params[:description]
       @device_count = params[:device_count].to_i
-      @device_list = DeviceList.new(params[:device_list])
+      @device_list = [params[:device_list]].flatten.collect do |device| 
+        DeviceList.new(device)
+      end
       @id = params[:id]      
       @open = params[:open]                        
       @recovery_point_count = params[:recovery_point_count].to_i
@@ -19,7 +21,6 @@ module UltraVault
       @size_of_deltas = params[:size_of_deltas_in_disk_safe].to_i
       @volume_id = params[:volume_id]
       extract_attributes params[:disk_safe_attribute_map]
-      recovery_points
     end
     
     def recovery_points
