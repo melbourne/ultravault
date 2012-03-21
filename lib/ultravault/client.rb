@@ -1,37 +1,19 @@
-require 'savon'
-
 module UltraVault
+  # @private
   class Client
-    
-    require 'client/users'
-    require 'client/groups'
-    require 'client/volumes'
-    
-    attr_accessor :options
-    
-    def initialize(options)
+    def initialize(params)
       
-      Config::VALID_OPTIONS.each do |key|
-        instance_variable_set(:"@#{key}", options[key])
+      @client = Savon::Client.new do
+        wsdl.endpoint = params[:endpoint] 
+        wsdl.namespace = params[:namespace]
+        http.auth.basic params[:username], params[:password]
       end
-      
     end
     
-    def connect
-      @client = Savon::Client.new(@url)
+    def request(action, args={})
+      @client.request action, :body => args
     end
-    
-    def call(method)
-      @client.call(method, :login => @username, :password => @password)
-    end
-    
-    def get(attribute, *arguments)
-      call("get#{attribute}", *arguments)
-    end
-    
-    def set(attribute, *arguments)
-      call("set#{attribute}", *arguments)
-    end
-    
   end
+  
 end
+
