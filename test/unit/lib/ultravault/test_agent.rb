@@ -47,9 +47,14 @@ class AgentTest < Test::Unit::TestCase
     end
     
     context 'class methods' do
-      should "pass on the call to the agent service" do
+      should "pass on the .find_by_id call to the agent service" do
         UltraVault::AgentService.any_instance.expects(:find_agent_by_id).with('foo')
         UltraVault::Agent.find_by_id('foo')
+      end
+      
+      should "pass on the .all call to the agent service" do
+        UltraVault::AgentService.any_instance.expects(:all_agents)
+        UltraVault::Agent.all       
       end
     end
   end

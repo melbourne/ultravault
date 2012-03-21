@@ -27,5 +27,13 @@ module UltraVault
     def self.find_by_id(agent_id)
       UltraVault::AgentService.new.find_agent_by_id(agent_id)
     end
+
+    # Returns all agents for the current user.
+    # 
+    # @return [[UltraVault::Agent]] current user's agents
+    # @raise [Savon::SOAP::Fault] errors from the soap transaction    
+    def self.all
+      UltraVault::AgentService.new.all_agents
+    end
   end
 end

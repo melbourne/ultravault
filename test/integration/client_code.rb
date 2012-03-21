@@ -17,8 +17,12 @@ class ClientCodeTest < Test::Unit::TestCase
         config.password = 'bar'
         config.debug = false
       end   
+     
+      # Get all agents
+      agents = UltraVault::Agent.all
+      assert agents.count > 0
       
-      # Create an agent
+      # Get an agent
       agent = UltraVault::Agent.find_by_id("e9bd701b-dac1-4921-ab1c-467f35209e21")
       assert_not_nil agent
       
