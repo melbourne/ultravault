@@ -11,8 +11,8 @@ module UltraVault
   
   class Config
     attr_accessor :host, :port, :api_version,
-                  :ssl, :username, :password,
-                  :debug
+                  :ssl, :username, :password
+    attr_reader   :debug
                   
     def initialize(host='', port=0, api_version=1, ssl=false,
                    username='', password='', debug=false)
@@ -22,7 +22,7 @@ module UltraVault
       @ssl = ssl
       @username = username
       @password = password
-      debug = debug
+      @debug = debug
     end
     
     def debug=(state)
