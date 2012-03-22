@@ -60,6 +60,16 @@ disk_safe = agent.disk_safes.first
 recovery_point = disk_safe.recovery_points.first  
 ```
 
+### Creating objects
+
+```ruby
+# Creating an agent
+agent = UltraVault::Agent.create(
+          :host => 'foo', :port => 1234,
+          :description => 'A new agent'
+        )
+```
+
 ## Authoring changes
 
 ### Testing
