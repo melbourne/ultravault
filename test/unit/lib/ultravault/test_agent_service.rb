@@ -61,7 +61,7 @@ class AgentServiceTest < Test::Unit::TestCase
         
         should "return a new agent object" do
           @client.expects(:request).with(:createAgentWithObject,
-            :agent => @params).returns(mock(to_hash: @agent_by_id_wrapper))
+            :agent => @params).returns(mock(to_hash: @agent_with_object_wrapper))
           UltraVault::Agent.expects(:new).returns(stub_everything)
           agent = @service.create_agent(@params)         
         end
