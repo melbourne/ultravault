@@ -68,8 +68,8 @@ class ClientCodeTest < Test::Unit::TestCase
          
         # Create new agent
         agent = UltraVault::Agent.create(
-                :hostname => 'foobar', :port_number => 8080,
-                :description => 'foobarbaz',
+                :hostname => 'foobar.com', :port_number => 9080,
+                :description => 'foobarbazbar',
                 :os_type => 'linux'
         )
         
