@@ -65,6 +65,13 @@ class AgentTest < Test::Unit::TestCase
         UltraVault::AgentService.any_instance.expects(:create_agent).with(params)
         UltraVault::Agent.create(params)
       end
+      
+      should "pass on the .update call to the agent service" do
+        params = @params.merge({ :hostname => 'bazfoobar' })
+        UltraVault::AgentService.any_instance.expects(:update_agent).with(params)
+        agent = UltraVault::Agent.new(@params)
+        agent.update(params)
+      end
     end
   end
 end
