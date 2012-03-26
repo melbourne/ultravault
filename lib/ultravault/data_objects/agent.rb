@@ -44,9 +44,14 @@ module UltraVault
       UltraVault::AgentService.new.create_agent(params)
     end
     
+    # Update the current agent
+    #
+    # @return [UltraVault::Agent] updated agent
+    # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def update(params)
       self.marshal_load(self.marshal_dump.merge(params))
       UltraVault::AgentService.new.update_agent(self.marshal_dump)
+      self
     end
   end
 end
