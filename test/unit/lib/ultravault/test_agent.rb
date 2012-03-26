@@ -56,6 +56,15 @@ class AgentTest < Test::Unit::TestCase
         UltraVault::AgentService.any_instance.expects(:all_agents)
         UltraVault::Agent.all       
       end
+      
+      should "pass on the .create call to the agent service" do
+        params = {  :hostname => 'foobar', :port_number => 8080,
+                    :description => 'foobar',
+                    :os_type => 'linux'
+                 }
+        UltraVault::AgentService.any_instance.expects(:create_agent).with(params)
+        UltraVault::Agent.create(params)
+      end
     end
   end
 end

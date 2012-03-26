@@ -34,5 +34,13 @@ module UltraVault
     def self.all
       UltraVault::AgentService.new.all_agents
     end
+    
+    # Returns a newly created agent with the given params.
+    #
+    # @return [UltraVault::Agent] new agent
+    # @raise [Savon::SOAP::Fault] errors from the soap transaction
+    def self.create(params)
+      UltraVault::AgentService.new.create_agent(params)
+    end
   end
 end
