@@ -1,6 +1,7 @@
 module UltraVault
 
   require 'savon'
+  require 'ostruct'
   require_relative "ultravault/config"
   
   autoload :Agent,                "ultravault/data_objects/agent"
