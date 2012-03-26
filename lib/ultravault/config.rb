@@ -21,6 +21,7 @@ module UltraVault
     def initialize(params={})
       params = defaults.merge(params)
       update(params)
+      debug=@debug
     end
 
     def update(params)
