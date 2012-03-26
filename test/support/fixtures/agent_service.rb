@@ -15,6 +15,13 @@ module UltraVault
                        :"@xmlns:ns1"=>"http://agent.api.server.backup.r1soft.com/"
                      }
                    }
+      @update_agent_wrapper = {
+                   :update_agent_response=>
+                    {
+                      :return=> @agent_by_id,
+                      :"@xmlns:ns1"=>"http://agent.api.server.backup.r1soft.com/"
+                    }
+                  }
       @agent_with_object_wrapper = {
                    :create_agent_with_object_response=>
                     {
