@@ -3,6 +3,8 @@ require 'shoulda'
 require 'mocha'
 require 'webmock/test_unit'
 require 'savon'
+require 'ostruct'
+
 include WebMock::API
 
 require_relative '../lib/ultravault/api_request'

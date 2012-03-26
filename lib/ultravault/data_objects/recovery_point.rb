@@ -1,5 +1,5 @@
 module UltraVault
-  class RecoveryPoint
+  class RecoveryPoint < OpenStruct
     attr_reader :agent_id, :created_at, :disk_safe_id,
                   :id, :state
     
