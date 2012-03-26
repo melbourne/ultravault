@@ -54,6 +54,8 @@ module UltraVault
     end
     
     # Destroy the current agent
+    # @ return [UltraVault::Agent] deleted agent
+    # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def destroy
       UltraVault::AgentService.new.destroy_agent(self.id)
       self
