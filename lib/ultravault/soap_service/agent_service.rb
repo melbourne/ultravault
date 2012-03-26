@@ -18,6 +18,12 @@ module UltraVault
       end  
     end
     
+    def create_agent(params)
+      response_hash = client.request(:createAgentWithObject,
+        :agent => map_agent_params(params)).to_hash
+      UltraVault::Agent.new(extract_agent_with_object_params(response_hash))   
+    end
+    
     private
     
     def extract_agent_params(response_hash)
@@ -28,6 +34,26 @@ module UltraVault
       [response_hash[:get_agents_response][:return]].flatten
     end
     
+    def extract_agent_with_object_params(response_hash)
+      response_hash[:create_agent_with_object_response][:return]      
+    end
+    
+    def map_agent_params(params)
+      mapped_params = {}
+      params.keys.each do |key|
+        case key
+          when :port_number
+            mapped_params[:portNumber] = params[key]                             
+          when :os_type
+            mapped_params[:osType] = params[key]                
+          else
+            mapped_params[key] = params[key]  
+        end
+      end
+      mapped_params
+    end
+    
   end
   
 end
+
