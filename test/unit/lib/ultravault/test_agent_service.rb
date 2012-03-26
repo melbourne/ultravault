@@ -73,6 +73,50 @@ class AgentServiceTest < Test::Unit::TestCase
           end
         end
       end
+      
+      context "#update_agent" do
+        setup do
+          @params = { :hostname => 'foobarbazbar', :portNumber => 8080,
+                      :description => 'foobar', :databaseAddOnEnabled => true,
+                      :osType => 'linux' }
+        end
+        
+        should "update an agent object" do
+          @client.expects(:request).with(:updateAgent,
+            :agent => @params).returns(
+               mock(to_hash: @update_agent_wrapper))
+          UltraVault::Agent.expects(:new).returns(stub_everything)
+          agent = @service.update_agent(@params)         
+        end
+        
+        should "raise an error if something goes wrong" do
+          @client.expects(:request).with(:updateAgent, :agent => @params
+            ).raises(@error)
+          assert_raise Savon::SOAP::Fault do
+            agent = @service.update_agent(@params)
+          end
+        end
+      end
+    
+      context "#destroy_agent" do
+        setup do
+          @params = { id: "12345" }
+        end
+        
+        should "destroy an agent object" do
+          @client.expects(:request).with(:deleteAgentById,
+            @params).returns(nil)
+          @service.destroy_agent(@params[:id])         
+        end
+        
+        should "raise an error if something goes wrong" do
+          @client.expects(:request).with(:updateAgent, :agent => @params
+            ).raises(@error)
+          assert_raise Savon::SOAP::Fault do
+            agent = @service.update_agent(@params)
+          end
+        end
+      end
     end
     
     context "#extract_agent_params" do
@@ -85,14 +129,21 @@ class AgentServiceTest < Test::Unit::TestCase
     context "#extract_all_agents_params" do
       should "drill down into the hash" do
         assert_equal UltraVault::AgentService.new.send(:extract_all_agents_params,
-         @all_agents_wrapper), @all_agents
+          @all_agents_wrapper), @all_agents
       end
     end
     
-    context "#extract_all_agents_params" do
+    context "#extract_agent_with_object_params" do
       should "drill down into the hash" do
         assert_equal UltraVault::AgentService.new.send(:extract_agent_with_object_params,
-         @agent_with_object_wrapper), @agent_by_id
+          @agent_with_object_wrapper), @agent_by_id
+      end
+    end
+    
+    context "#extract_update_agent_params" do
+      should "drill down into the hash" do
+        assert_equal UltraVault::AgentService.new.send(:extract_update_agent_params,
+          @update_agent_wrapper), @agent_by_id        
       end
     end
     
