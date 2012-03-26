@@ -1,5 +1,5 @@
 module UltraVault
-  class DiskSafe
+  class DiskSafe < OpenStruct
     attr_reader :agent_id, :compression_level, :compression_type,
                   :description, :device_count, :device_list,
                   :id, :open, :recovery_point_count,
