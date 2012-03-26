@@ -51,7 +51,12 @@ module UltraVault
     def update(params)
       self.marshal_load(self.marshal_dump.merge(params))
       UltraVault::AgentService.new.update_agent(self.marshal_dump)
-      self
+    end
+    
+    # Destroy the current agent
+    def destroy
+      UltraVault::AgentService.new.destroy_agent(self.id)
+      self.delete
     end
   end
 end

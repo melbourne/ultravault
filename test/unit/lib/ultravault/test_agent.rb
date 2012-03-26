@@ -72,6 +72,13 @@ class AgentTest < Test::Unit::TestCase
         agent = UltraVault::Agent.new(@params)
         agent.update(params)
       end
+      
+      should "pass on the .destroy call to the agent service" do
+        id = "12345"
+        UltraVault::AgentService.any_instance.expects(:destroy_agent).with(id)
+        agent = UltraVault::Agent.new(@params.merge!(id: id))
+        agent.destroy
+      end
     end
   end
 end
