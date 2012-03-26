@@ -76,7 +76,7 @@ class ClientCodeTest < Test::Unit::TestCase
         assert_not_nil agent
         
         agent_id = agent.id
-        agent_old_host = agent.host
+        agent_old_host = agent.hostname
         
         # Update an agent's properties
         agent.update(:host => 'bazbar')
