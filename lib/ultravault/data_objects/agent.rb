@@ -56,7 +56,7 @@ module UltraVault
     # Destroy the current agent
     def destroy
       UltraVault::AgentService.new.destroy_agent(self.id)
-      self.delete
+      self
     end
   end
 end
