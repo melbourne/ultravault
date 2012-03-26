@@ -44,5 +44,45 @@ class ClientCodeTest < Test::Unit::TestCase
         assert_not_nil agent
       end
     end
+    
+    should "create, modify and delete agents" do
+      VCR.use_cassette('create_mod_rm_agents') do
+              
+        # Set up the service
+        UltraVault.configure do |config|
+          config.host = 'foo.bar.baz'
+          config.port = 9080
+          config.api_version = 1
+          config.ssl = false
+          config.username = 'foo'
+          config.password = 'bar'
+          config.debug = false
+        end
+         
+        # Create new agent
+        agent = UltraVault::Agent.create(
+                :hostname => 'foobar.com', :port_number => 9080,
+                :description => 'foobarbazbar',
+                :os_type => 'linux'
+        )
+        
+        assert_not_nil agent
+        
+        agent_id = agent.id
+        agent_old_host = agent.hostname
+        
+        # Update an agent's properties
+        agent.update(:hostname => 'bazbar')
+        assert_not_equal agent_old_host, agent.host
+        
+        # Delete an agent
+        agent.destroy
+
+        # Prove it's gone
+        assert_raise Savon::SOAP::Fault do
+          agent = UltraVault::Agent.find_by_id(agent_id)
+        end
+      end   
+    end
   end
 end

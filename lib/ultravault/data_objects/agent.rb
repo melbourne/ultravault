@@ -1,5 +1,5 @@
 module UltraVault
-  class Agent
+  class Agent < OpenStruct
     attr_reader :description, :hostname, :id, :os_type, :port_number
     
     def initialize(params)
@@ -8,6 +8,7 @@ module UltraVault
       @id = params[:id]
       @os_type = params[:os_type]
       @port_number = params[:port_number]
+      super(params)
     end
 
     # Disksafes belonging to this agent.
@@ -33,6 +34,31 @@ module UltraVault
     # @raise [Savon::SOAP::Fault] errors from the soap transaction    
     def self.all
       UltraVault::AgentService.new.all_agents
+    end
+    
+    # Returns a newly created agent with the given params.
+    #
+    # @return [UltraVault::Agent] new agent
+    # @raise [Savon::SOAP::Fault] errors from the soap transaction
+    def self.create(params)
+      UltraVault::AgentService.new.create_agent(params)
+    end
+    
+    # Update the current agent
+    #
+    # @return [UltraVault::Agent] updated agent
+    # @raise [Savon::SOAP::Fault] errors from the soap transaction
+    def update(params)
+      self.marshal_load(self.marshal_dump.merge(params))
+      UltraVault::AgentService.new.update_agent(self.marshal_dump)
+    end
+    
+    # Destroy the current agent
+    # @ return [UltraVault::Agent] deleted agent
+    # @raise [Savon::SOAP::Fault] errors from the soap transaction
+    def destroy
+      UltraVault::AgentService.new.destroy_agent(self.id)
+      self
     end
   end
 end

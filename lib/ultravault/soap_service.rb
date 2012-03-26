@@ -16,5 +16,13 @@ module UltraVault
                               password: UltraVault.config.password)     
     end
     
+    def extract_params(response_hash, type)
+      response_hash[type][:return]
+    end
+    
+    def extract_params_array(response_hash, type)
+      [extract_params(response_hash,type)].flatten
+    end
+    
   end
 end
