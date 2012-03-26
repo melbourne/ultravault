@@ -70,10 +70,10 @@ agent = UltraVault::Agent.create(
         )
 
 # Updating an agent
-agent.update(:hostname => 'bazbar')
+updated_agent = agent.update(:hostname => 'bazbar')
 
 # Deleting an agent
-agent.destroy
+destroyed_agent = agent.destroy
 ```
 
 ## Authoring changes
