@@ -64,12 +64,14 @@ module UltraVault
                       :os_type => 'linux'
                    }
           AgentService.any_instance.expects(:create_agent).with(params)
+          Agent.expects(:check_params_strict).returns(true)
           Agent.create(params)
         end
       
         should "pass on the .update call to the agent service" do
           params = @params.merge({ :hostname => 'bazfoobar' })
           AgentService.any_instance.expects(:update_agent).with(params)
+          Agent.expects(:check_params).returns(true)
           agent = Agent.new(@params)
           agent.update(params)
         end
@@ -79,6 +81,51 @@ module UltraVault
           AgentService.any_instance.expects(:destroy_agent).with(id)
           agent = Agent.new(@params.merge!(id: id))
           agent.destroy
+        end
+      end
+      
+      context "params checking" do
+      
+        setup do
+          @complete_legal_params =     {
+                                         :hostname => 'foo', :port_number => 40,
+                                         :description => "Bar", :os_type => "Baz"
+                                       }
+          @incomplete_legal_params =   {
+                                         :port_number => 40,
+                                         :description => "Bar"
+                                       }
+          @incomplete_illegal_params = {
+                                         :rargh => 'foo', :port_number => 40,
+                                         :description => "Bar", :os_type => "Baz"
+                                       }
+        end
+      
+        context '#check_params' do
+          should "return true if params are legal" do
+            assert_equal Agent.check_params(@complete_legal_params), true
+          end
+        
+          should "raise ArgumentError if params are non-legal" do
+            assert_raise ArgumentError do
+              Agent.check_params(@incomplete_illegal_params)
+            end
+          end
+        end
+      
+        context '#check_params_strict' do
+          should "return true if params are legal and all present" do
+            assert_equal Agent.check_params_strict(@complete_legal_params), true
+          end
+        
+          should "raise ArgumentError if params are non-legal/all present" do
+            assert_raise ArgumentError do
+              Agent.check_params_strict(@incomplete_illegal_params)
+            end
+            assert_raise ArgumentError do
+              Agent.check_params_strict(@incomplete_legal_params)
+            end          
+          end
         end
       end
     end

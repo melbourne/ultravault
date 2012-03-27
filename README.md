@@ -65,8 +65,9 @@ recovery_point = disk_safe.recovery_points.first
 ```ruby
 # Creating an agent
 agent = UltraVault::Agent.create(
-          :host => 'foo', :port => 1234,
-          :description => 'A new agent'
+          :hostname => 'foo', :port_number => 1234,
+          :description => 'A new agent',
+          :os_type => 'linux'
         )
 
 # Updating an agent
