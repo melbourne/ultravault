@@ -41,6 +41,7 @@ module UltraVault
     # @return [UltraVault::Agent] new agent
     # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def self.create(params)
+      Agent.check_params_strict(params)
       UltraVault::AgentService.new.create_agent(params)
     end
     
@@ -49,6 +50,7 @@ module UltraVault
     # @return [UltraVault::Agent] updated agent
     # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def update(params)
+      Agent.check_params(params)
       self.marshal_load(self.marshal_dump.merge(params))
       UltraVault::AgentService.new.update_agent(self.marshal_dump)
     end
@@ -60,5 +62,43 @@ module UltraVault
       UltraVault::AgentService.new.destroy_agent(self.id)
       self
     end
+
+    class << self
+    
+      USAGE = "Valid arguments - :hostname, :port_number, :description, :os_type"
+      USE_ALL = "All arguments required."
+      REQUIRED_PARAMS = [:hostname, :port_number, :description, :os_type]
+    
+      def check_params(params)
+        do_check_params(false, params)
+      end
+    
+      def check_params_strict(params)
+        do_check_params(true, params)
+      end
+    
+      def do_check_params(strict, params)
+        check_params_are_legal(params)
+        check_all_params_are_present(params) if strict
+        true
+      end
+    
+      def check_params_are_legal(params)
+        params.keys.each do |key|
+          unless REQUIRED_PARAMS.include?(key)
+            raise ArgumentError.new(USAGE)
+          end
+        end
+      end
+    
+      def check_all_params_are_present(params)
+        REQUIRED_PARAMS.each do |key|
+          unless params.keys.include?(key)
+            raise ArgumentError.new("#{USAGE}. #{USE_ALL}") 
+          end
+        end
+      end
+    end
+    
   end
 end
