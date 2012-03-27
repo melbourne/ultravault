@@ -17,11 +17,12 @@ module UltraVault
     end
     
     def extract_params(response_hash, type)
-      response_hash[type][:return]
+      return response_hash[type][:return] if response_hash[type]
+      nil
     end
     
     def extract_params_array(response_hash, type)
-      [extract_params(response_hash,type)].flatten
+      [extract_params(response_hash,type)].flatten.compact
     end
     
   end
