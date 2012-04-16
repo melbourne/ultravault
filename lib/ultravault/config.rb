@@ -8,7 +8,7 @@ module UltraVault
   end
   
   def self.config=(hash)
-    @config.update(hash)
+    self.config.update(hash)
   end
   
   private
