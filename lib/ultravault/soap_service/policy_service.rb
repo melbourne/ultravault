@@ -6,7 +6,7 @@ module UltraVault
       super(:Policy)
     end
     
-    def list_policies
+    def all_policies
       response_hash = client.request(:getPolicies).to_hash
       params = extract_params_array(response_hash,
         :get_policies_response)

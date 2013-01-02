@@ -1,9 +1,10 @@
 module UltraVault
   class Policy < OpenStruct
-    attr_reader :params
-    
-    def initialize(params)
-      @params = params
+
+    def self.find_by_name(name)
+      UltraVault::PolicyService.new.all_policies.each do |policy|
+        return policy if policy.name == name
+      end
     end
     
   end
