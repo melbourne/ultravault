@@ -13,5 +13,6 @@ module UltraVault
   autoload :RecoveryPoint,        "ultravault/data_objects/recovery_point" 
   autoload :RecoveryPointService, "ultravault/soap_service/recovery_point_service" 
   autoload :SoapService,          "ultravault/soap_service"
+  autoload :PolicyService,        "ultravault/soap_service/policy_service"
   
 end
