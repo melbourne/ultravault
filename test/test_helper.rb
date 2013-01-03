@@ -20,6 +20,8 @@ require_relative '../lib/ultravault/soap_service'
 require_relative '../lib/ultravault/soap_service/agent_service'
 require_relative '../lib/ultravault/soap_service/disk_safe_service'
 require_relative '../lib/ultravault/soap_service/recovery_point_service'
+require_relative '../lib/ultravault/soap_service/policy_service'
+require_relative '../lib/ultravault/data_objects/policy'
 
 require_relative 'support/fixtures'
 
