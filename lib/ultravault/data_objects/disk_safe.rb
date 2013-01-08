@@ -12,7 +12,7 @@ module UltraVault
       @description = params[:description]
       @device_count = params[:device_count].to_i
       @device_list = [params[:device_list]].flatten.collect do |device| 
-        DeviceList.new(device)
+        DeviceList.new(device) if device
       end
       @id = params[:id]      
       @open = params[:open]                        
@@ -21,6 +21,7 @@ module UltraVault
       @size_of_deltas = params[:size_of_deltas_in_disk_safe].to_i
       @volume_id = params[:volume_id]
       extract_attributes params[:disk_safe_attribute_map]
+      super(params)
     end
     
     def recovery_points
