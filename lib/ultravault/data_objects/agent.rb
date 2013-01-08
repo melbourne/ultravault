@@ -17,7 +17,7 @@ module UltraVault
     # @raise [Savon::SOAP::Fault] errors from the soap transaction    
     def disk_safes
       if UltraVault.config.api_version > 1
-        @disk_safes ||= UltraVault::DiskSafe.all.map { |disk_safe| disk_safe if disk_safe.agent_id == id }
+        @disk_safes ||= UltraVault::DiskSafe.all.map { |disk_safe| disk_safe if disk_safe.agent_id == id }.compact
       else
         @disk_safes ||= UltraVault::DiskSafe.find_all_by_agent_id(id)
       end
