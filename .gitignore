@@ -1,0 +1,15 @@
+coverage/
+doc/
+Gemfile.lock
+old/
+pkg/
+*.gem
+*.rbc
+.DS_Store
+.bundle
+.rvmrc
+Gemfile.lock
+.yardoc/checksums
+.yardoc/objects/root.dat
+.yardoc/proxy_types
+.yardopts
