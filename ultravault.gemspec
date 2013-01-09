@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name    = "ultravault"
-  gem.version = "1.1.0"
+  gem.version = "1.1.1"
 
   gem.homepage    = "http://github.com/melbourne/ultravault"
   gem.summary     = "UltraVault"
@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "vcr"
   gem.add_development_dependency "simplecov"
   
-  gem.add_dependency "savon"
+  gem.add_dependency "savon", "~> 0.9.9"
 
   gem.author = "Carpet & Sean"
   gem.email  = "andrew.turner@melbourne.co.uk;sean.handley@melbourne.co.uk"
