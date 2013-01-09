@@ -14,5 +14,14 @@ module UltraVault
         UltraVault::DiskSafe.new(disk_safe)
       end
     end
+    
+    def all_disk_safes
+      response_hash = client.request(:getDiskSafes).to_hash
+      params = extract_params_array(response_hash,
+        :get_disk_safes_response)
+      params.collect do |disk_safe|
+        UltraVault::DiskSafe.new(disk_safe)
+      end
+    end
   end
 end
