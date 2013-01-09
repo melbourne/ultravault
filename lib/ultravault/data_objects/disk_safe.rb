@@ -11,8 +11,8 @@ module UltraVault
       @compression_type = params[:compression_type]
       @description = params[:description]
       @device_count = params[:device_count].to_i
-      @device_list = [params[:device_list]].flatten.collect do |device| 
-        DeviceList.new(device)
+      @device_list = [params[:device_list]].flatten.collect do |device|
+        DeviceList.new(device) if device
       end
       @id = params[:id]      
       @open = params[:open]                        
@@ -21,6 +21,7 @@ module UltraVault
       @size_of_deltas = params[:size_of_deltas_in_disk_safe].to_i
       @volume_id = params[:volume_id]
       extract_attributes params[:disk_safe_attribute_map]
+      super(params)
     end
     
     def recovery_points
@@ -34,7 +35,15 @@ module UltraVault
     # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def self.find_all_by_agent_id(agent_id)
       UltraVault::DiskSafeService.new.find_disksafes_by_agent_id agent_id
-    end                      
+    end  
+
+    # Returns all disk safes for the current user.
+    # 
+    # @return [[UltraVault::DiskSafe]] current user's disk safes
+    # @raise [Savon::SOAP::Fault] errors from the soap transaction    
+    def self.all
+      UltraVault::DiskSafeService.new.all_disk_safes
+    end
   
   private
   
