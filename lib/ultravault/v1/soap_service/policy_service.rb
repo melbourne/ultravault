@@ -1,4 +1,4 @@
-module UltraVault
+module UltraVault::V1
   # @private  
   class PolicyService < UltraVault::SoapService
 
@@ -9,7 +9,7 @@ module UltraVault
     def find_policy_by_id(policy_id)
       response_hash = client.request(:getPolicyById, :id => policy_id).to_hash
       params = extract_params(response_hash, :get_policy_by_id_response)
-      UltraVault::Policy.new(params)
+      UltraVault::V1::Policy.new(params)
     end
     
     def all_policies
@@ -17,7 +17,7 @@ module UltraVault
       params = extract_params_array(response_hash,
         :get_policies_response)
       params.collect do |policy|
-        UltraVault::Policy.new(policy)
+        UltraVault::V1::Policy.new(policy)
       end
     end
   end

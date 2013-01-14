@@ -1,6 +1,6 @@
-require_relative '../../../../test_helper'
+require_relative '../../../../../test_helper'
 
-module UltraVault
+module UltraVault::V1
   class AgentTest < Test::Unit::TestCase
   
     context 'a new agent' do
@@ -45,23 +45,6 @@ module UltraVault
           @agent.disk_safes
         end
 
-      end
-
-      context 'with an API version > 1' do
-
-        setup do
-          UltraVault.configure do |config|
-            config.api_version = 2
-          end
-          @agent = Agent.new(@params)
-        end
-
-        should "respond to .disk_safes via an api call" do
-          DiskSafe.expects(:all).returns(Array.new)
-          assert_equal 2, UltraVault.config.api_version
-          @agent.disk_safes
-        end
-      
       end
     
       context 'class methods' do

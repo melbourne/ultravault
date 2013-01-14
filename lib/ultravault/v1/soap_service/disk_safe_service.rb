@@ -1,4 +1,4 @@
-module UltraVault
+module UltraVault::V1
   # @private  
   class DiskSafeService < UltraVault::SoapService
 
@@ -11,7 +11,7 @@ module UltraVault
       params = extract_params_array(response_hash,
         :get_disk_safes_for_agent_response)
       params.collect do |disk_safe|
-        UltraVault::DiskSafe.new(disk_safe)
+        UltraVault::V1::DiskSafe.new(disk_safe)
       end
     end
     
@@ -20,7 +20,7 @@ module UltraVault
       params = extract_params_array(response_hash,
         :get_disk_safes_response)
       params.collect do |disk_safe|
-        UltraVault::DiskSafe.new(disk_safe)
+        UltraVault::V1::DiskSafe.new(disk_safe)
       end
     end
   end

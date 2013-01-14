@@ -1,6 +1,6 @@
-require_relative '../../../../test_helper'
+require_relative '../../../../../test_helper'
 
-module UltraVault
+module UltraVault::V1
   class RecoveryPointServiceTest < Test::Unit::TestCase
   
     context 'a new recovery point service' do
@@ -11,7 +11,7 @@ module UltraVault
 
       context '#find_recovery_points_by_disk_safe_id' do
         setup do
-          ApiRequest.expects(:new).returns(stub(endpoint: 'foo',
+          UltraVault::ApiRequest.expects(:new).returns(stub(endpoint: 'foo',
               namespace: 'bar'))
           @service = RecoveryPointService.new
           @client = stub

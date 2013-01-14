@@ -1,4 +1,4 @@
-module UltraVault
+module UltraVault::V1
   # @private
   class AgentService < UltraVault::SoapService    
     
@@ -9,14 +9,14 @@ module UltraVault
     def find_agent_by_id(agent_id)
       response_hash = client.request(:getAgentByID, :id => agent_id).to_hash
       params = extract_params(response_hash, :get_agent_by_id_response)
-      UltraVault::Agent.new(params)
+      UltraVault::V1::Agent.new(params)
     end
     
     def all_agents
       response_hash = client.request(:getAgents).to_hash
       params = extract_params_array(response_hash, :get_agents_response)
       params.collect do |agent|
-        UltraVault::Agent.new(agent)
+        UltraVault::V1::Agent.new(agent)
       end  
     end
     
@@ -25,13 +25,13 @@ module UltraVault
         :agent => map_agent_params(params)).to_hash
         params = extract_params(response_hash,
           :create_agent_with_object_response)
-      UltraVault::Agent.new(params)   
+      UltraVault::V1::Agent.new(params)   
     end
     
     def update_agent(params)
       client.request(:updateAgent,
         :agent => map_agent_params(params)).to_hash
-      UltraVault::Agent.new(params)      
+      UltraVault::V1::Agent.new(params)      
     end
     
     def destroy_agent(id)

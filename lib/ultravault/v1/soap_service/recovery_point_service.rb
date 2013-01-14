@@ -1,4 +1,4 @@
-module UltraVault
+module UltraVault::V1
   # @private
   class RecoveryPointService < UltraVault::SoapService
     
@@ -13,7 +13,7 @@ module UltraVault
       params = extract_params_array(response_hash,
         :get_recovery_points_response)
       params.collect do |recovery_point|
-        UltraVault::RecoveryPoint.new(recovery_point)
+        UltraVault::V1::RecoveryPoint.new(recovery_point)
       end
 
     end

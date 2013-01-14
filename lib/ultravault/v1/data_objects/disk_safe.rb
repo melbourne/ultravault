@@ -1,4 +1,4 @@
-module UltraVault
+module UltraVault::V1
   class DiskSafe < OpenStruct
     attr_reader :agent_id, :compression_level, :compression_type,
                   :description, :device_count, :device_list,
@@ -25,11 +25,11 @@ module UltraVault
     end
     
     def recovery_points
-      @recovery_points ||= UltraVault::RecoveryPointService.new.find_recovery_points_by_disk_safe_id(id)
+      @recovery_points ||= UltraVault::V1::RecoveryPointService.new.find_recovery_points_by_disk_safe_id(id)
     end
 
     def policies
-      @policies ||= UltraVault::Policy.all.map { |policy| policy if policy.disk_safe_id == id }.compact
+      @policies ||= UltraVault::V1::Policy.all.map { |policy| policy if policy.disk_safe_id == id }.compact
     end
     
     # Returns an array of disk safes, if found.
@@ -38,7 +38,7 @@ module UltraVault
     # @return [[UltraVault::DiskSafe]] the matching disk safes for the agent
     # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def self.find_all_by_agent_id(agent_id)
-      UltraVault::DiskSafeService.new.find_disksafes_by_agent_id agent_id
+      UltraVault::V1::DiskSafeService.new.find_disksafes_by_agent_id agent_id
     end  
 
     # Returns all disk safes for the current user.
@@ -46,7 +46,7 @@ module UltraVault
     # @return [[UltraVault::DiskSafe]] current user's disk safes
     # @raise [Savon::SOAP::Fault] errors from the soap transaction    
     def self.all
-      UltraVault::DiskSafeService.new.all_disk_safes
+      UltraVault::V1::DiskSafeService.new.all_disk_safes
     end
   
   private

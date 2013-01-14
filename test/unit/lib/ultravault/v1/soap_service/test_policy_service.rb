@@ -1,6 +1,6 @@
-require_relative '../../../../test_helper'
+require_relative '../../../../../test_helper'
 
-module UltraVault
+module UltraVault::V1
   class PolicyServiceTest < Test::Unit::TestCase
   
     context 'a new policy service' do
@@ -12,7 +12,7 @@ module UltraVault
       context 'public methods' do
       
         setup do
-          ApiRequest.expects(:new).returns(stub(endpoint: 'foo',
+          UltraVault::ApiRequest.expects(:new).returns(stub(endpoint: 'foo',
               namespace: 'bar'))
           @service = PolicyService.new
           @client = stub

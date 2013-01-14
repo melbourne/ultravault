@@ -1,6 +1,6 @@
-require_relative '../../../../test_helper'
+require_relative '../../../../../test_helper'
 
-module UltraVault
+module UltraVault::V1
   class RecoveryPointTest < Test::Unit::TestCase
   
     context "creating a recovery point" do

@@ -1,4 +1,4 @@
-module UltraVault
+module UltraVault::V1
   class RecoveryPoint < OpenStruct
     attr_reader :agent_id, :created_at, :disk_safe_id,
                   :id, :state
@@ -17,7 +17,7 @@ module UltraVault
     # @return [[UltraVault::RecoveryPoint]] the matching recovery points for the agent
     # @raise [Savon::SOAP::Fault] errors from the soap transaction    
     def self.find_all_by_disk_safe_id(disk_safe_id)
-      UltraVault::RecoveryPointService.new.find_recovery_points_by_disk_safe_id(disk_safe_id)
+      UltraVault::V1::RecoveryPointService.new.find_recovery_points_by_disk_safe_id(disk_safe_id)
     end
     
   end

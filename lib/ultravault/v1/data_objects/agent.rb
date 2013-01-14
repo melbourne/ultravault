@@ -1,4 +1,4 @@
-module UltraVault
+module UltraVault::V1
   class Agent < OpenStruct
     attr_reader :description, :hostname, :id, :os_type, :port_number
     
@@ -13,57 +13,53 @@ module UltraVault
 
     # Disksafes belonging to this agent.
     # 
-    # @return [[UltraVault::DiskSafe]] disk safes for this agent
+    # @return [[UltraVault::V1::DiskSafe]] disk safes for this agent
     # @raise [Savon::SOAP::Fault] errors from the soap transaction    
     def disk_safes
-      if UltraVault.config.api_version > 1
-        @disk_safes ||= UltraVault::DiskSafe.all.map { |disk_safe| disk_safe if disk_safe.agent_id == id }.compact
-      else
-        @disk_safes ||= UltraVault::DiskSafe.find_all_by_agent_id(id)
-      end
+      @disk_safes ||= UltraVault::V1::DiskSafe.find_all_by_agent_id(id)
     end
     
     # Returns an agent, if found.
     # 
     # @param [String] agent_id the UUID of the agent 
-    # @return [UltraVault::Agent] the agent matching the agent_id
+    # @return [UltraVault::V1::Agent] the agent matching the agent_id
     # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def self.find_by_id(agent_id)
-      UltraVault::AgentService.new.find_agent_by_id(agent_id)
+      UltraVault::V1::AgentService.new.find_agent_by_id(agent_id)
     end
 
     # Returns all agents for the current user.
     # 
-    # @return [[UltraVault::Agent]] current user's agents
+    # @return [[UltraVault::V1::Agent]] current user's agents
     # @raise [Savon::SOAP::Fault] errors from the soap transaction    
     def self.all
-      UltraVault::AgentService.new.all_agents
+      UltraVault::V1::AgentService.new.all_agents
     end
     
     # Returns a newly created agent with the given params.
     #
-    # @return [UltraVault::Agent] new agent
+    # @return [UltraVault::V1::Agent] new agent
     # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def self.create(params)
       Agent.check_params_strict(params)
-      UltraVault::AgentService.new.create_agent(params)
+      UltraVault::V1::AgentService.new.create_agent(params)
     end
     
     # Update the current agent
     #
-    # @return [UltraVault::Agent] updated agent
+    # @return [UltraVault::V1::Agent] updated agent
     # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def update(params)
       Agent.check_params(params)
       self.marshal_load(self.marshal_dump.merge(params))
-      UltraVault::AgentService.new.update_agent(self.marshal_dump)
+      UltraVault::V1::AgentService.new.update_agent(self.marshal_dump)
     end
     
     # Destroy the current agent
-    # @ return [UltraVault::Agent] deleted agent
+    # @ return [UltraVault::V1::Agent] deleted agent
     # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def destroy
-      UltraVault::AgentService.new.destroy_agent(self.id)
+      UltraVault::V1::AgentService.new.destroy_agent(self.id)
       self
     end
 
