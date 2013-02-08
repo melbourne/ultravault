@@ -38,11 +38,7 @@ module UltraVault
     # @return [[UltraVault::DiskSafe]] the matching disk safes for the agent
     # @raise [Savon::SOAP::Fault] errors from the soap transaction
     def self.find_all_by_agent_id(agent_id)
-      if UltraVault.config.api_version > 1
-        all.map { |disk_safe| disk_safe if disk_safe.agent_id == agent_id }.compact
-      else
-        UltraVault::DiskSafeService.new.find_disksafes_by_agent_id agent_id
-      end
+      UltraVault::DiskSafeService.new.find_disksafes_by_agent_id agent_id
     end  
 
     # Returns all disk safes for the current user.
