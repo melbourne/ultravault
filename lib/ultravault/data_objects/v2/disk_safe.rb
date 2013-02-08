@@ -1,6 +1,6 @@
 module UltraVault
-  class DiskSafe < V1::DiskSafe
-    def initialize
+  class DiskSafeV2 < DiskSafeV1
+    def initialize(params)
       super
     end
 
