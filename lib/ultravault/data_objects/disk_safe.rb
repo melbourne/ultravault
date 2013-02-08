@@ -27,6 +27,10 @@ module UltraVault
     def recovery_points
       @recovery_points ||= UltraVault::RecoveryPointService.new.find_recovery_points_by_disk_safe_id(id)
     end
+
+    def policies
+      @policies ||= UltraVault::Policy.all.map { |policy| policy if policy.disk_safe_id == id }.compact
+    end
     
     # Returns an array of disk safes, if found.
     # 
