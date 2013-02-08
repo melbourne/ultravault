@@ -9,9 +9,9 @@ module UltraVault
     def all_cdp_servers
       response_hash = client.request(:getRegisteredCDPS).to_hash
       params = extract_params_array(response_hash,
-        :get_policies_response)
-      params.collect do |policy|
-        UltraVault::CDP.new(policy)
+        :get_registered_cdps_response)
+      params.collect do |cdp|
+        UltraVault::CDP.new(cdp)
       end
     end
   end
