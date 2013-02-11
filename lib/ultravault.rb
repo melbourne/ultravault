@@ -15,5 +15,7 @@ module UltraVault
   autoload :SoapService,          "ultravault/soap_service"
   autoload :Policy,               "ultravault/data_objects/policy"
   autoload :PolicyService,        "ultravault/soap_service/policy_service"
+  autoload :CDP,                  "ultravault/data_objects/cdp"
+  autoload :CDPService,           "ultravault/soap_service/cdp_service"
   
 end
