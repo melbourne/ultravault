@@ -11,7 +11,7 @@ module UltraVault
       @compression_type = params[:compression_type]
       @description = params[:description]
       @device_count = params[:device_count].to_i
-      @device_list = [params[:device_list]].flatten.collect do |device| 
+      @device_list = [params[:device_list]].flatten.collect do |device|
         DeviceList.new(device) if device
       end
       @id = params[:id]      
@@ -43,7 +43,7 @@ module UltraVault
     # @raise [Savon::SOAP::Fault] errors from the soap transaction    
     def self.all
       UltraVault::DiskSafeService.new.all_disk_safes
-    end                    
+    end
   
   private
   
