@@ -7,6 +7,7 @@ module UltraVault
         wsdl.endpoint = params[:endpoint] 
         wsdl.namespace = params[:namespace]
         http.auth.basic params[:username], params[:password]
+        http.auth.ssl.verify_mode = :none
       end
     end
     
