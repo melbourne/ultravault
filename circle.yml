@@ -1,0 +1,3 @@
+test:
+  override:
+    - ruby -I"test:lib" test/all.rb 
