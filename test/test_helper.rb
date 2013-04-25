@@ -3,7 +3,7 @@ SimpleCov.start
 
 require 'test/unit'
 require 'shoulda'
-require 'mocha'
+require 'mocha/setup'
 require 'webmock/test_unit'
 require 'savon'
 require 'ostruct'
