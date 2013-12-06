@@ -1,5 +1,7 @@
 # UltraVault
 
+[![Status](https://circleci.com/gh/melbourne/ultravault.png?circle-token=97180fca88dbe7961dc2e79c29e177119a4326b4)](https://circleci.com/gh/melbourne/ultravault/tree/production)
+
 A simple wrapper gem for the UltraVault API allowing users to retrieve information about their agents, disk safes and recovery points.
 
 ## Installing with Bundler
